@@ -1,0 +1,16 @@
+
+.student-element-detail{
+  width: 100%;
+}
+.student-detail-row {
+  min-height: 0;
+}
+.student-detail-row mat-cell
+{
+  background: #ffffff;
+  box-shadow: inset 3px 0px 5px var(--third-color),inset -3px 0px 5px #f0f0f0;
+  text-align: right;
+  padding-right: 10px !important;
+  max-height: 57px;
+  overflow-y: auto;
+}

@@ -1,0 +1,105 @@
+<!--  ------main----------------- -->
+
+
+<!-- ------------------------------chart for admin----------------------------- -->
+<mat-card class="example-card" style="padding-bottom: 10px !important; ">
+    <div class="d-flex">
+        <div class="col-sm-12 col-md-12">
+
+            <div class="mx-0 pt-4  shadow card border-left-info">
+
+                <div class="chart-wrapper mb-5 ">
+                    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [colors]="barcolors"
+                        [chartType]="barChartType"  [options]="barChartOptions" [plugins]="barChartPlugins"
+                        [legend]="barChartLegend">
+                    </canvas>
+                </div>
+                <div class="detailscharttxt">
+                    <div class="detailschartblocks">
+
+
+                        <span id="MainContent_monthstat_lbl" class="lblbigtxt">{{totalApproved}}</span>
+                        <label class="lblbigtxtunder item1">Total Approved</label>
+                    </div>
+                    <div class="detailschartblocks">
+
+                        <span id="MainContent_totalevu_lbl" class="lblbigtxt">{{totalPending}}</span>
+
+                        <label class="lblbigtxtunder item2">Total Pending</label>
+                    </div>
+
+                    <div class="detailschartblocks">
+
+
+                        <span id="MainContent_totalevoustat_lbl" class="lblbigtxt">{{totalRejected}}</span>
+                        <label class="lblbigtxtunder item3">Total Rejected </label>
+                    </div>
+
+            </div>
+            </div>
+        </div>
+    </div>
+</mat-card>
+
+
+
+
+
+<!-- ------------------------------chart for creator--------------------------------- -->
+
+<mat-card class="example-card p-3 pb-0" >
+  <div class="container-fluid pt-4 px-4" >
+    <div class="row g-4">
+        <div class="m-auto text-center" >
+
+          <div class="chart-wrapper rounded mb-4">
+            <canvas baseChart class="creator"
+            [data]="doughnutChartData"
+            [labels]="doughnutChartLabels"
+            [colors]="colors"
+            [plugins]="barChartPlugins"
+
+            [chartType]="doughnutChartType"
+           >
+          </canvas>
+        </div>
+
+         <hr class="breakline">
+         <div class="detailscharttxt">
+             <div class="detailschartblocks">
+
+
+                 <span id="MainContent_monthstat_lbl" class="lblbigtxt">54</span>
+                 <label class="lblbigtxtunder item1">Total Approved </label>
+             </div>
+             <div class="detailschartblocks">
+
+                 <span id="MainContent_totalevu_lbl" class="lblbigtxt">5</span>
+
+                 <label class="lblbigtxtunder item2">Total Pending </label>
+             </div>
+             <div class="detailschartblocks">
+
+              <span id="MainContent_totalevu_lbl" class="lblbigtxt">34</span>
+
+              <label class="lblbigtxtunder item3">Total Rejected </label>
+          </div>
+             </div>
+             <hr class="breakline">
+             <div class="text-center">
+
+
+              <span id="MainContent_monthstat_lbl" class="lblbigtxt">55</span>
+              <label class="lblbigtxtundero mt-3">Total  </label>
+          </div>
+
+
+        </div>
+
+
+
+    </div>
+</div>
+
+
+</mat-card>

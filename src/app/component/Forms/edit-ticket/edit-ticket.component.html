@@ -1,0 +1,161 @@
+<mat-toolbar class="top" dir="rtl">
+  <span class="fill-remaining-space"> تعديل</span>
+  <div class="w-100">
+    <button
+      class="btn-dialog-close"
+      mat-button
+      tabIndex="-1"
+      (click)="onClose()"
+    >
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+
+
+<form
+  [formGroup]="service.form"
+  class="normal-form mx-0"
+  (submit)="onSubmit()"
+  dir="rtl"
+>
+<!-- ------------------------------test----------------------- -->
+<mat-grid-list cols="2" rowHeight="500" class="mx-3">
+  <mat-grid-tile colspan="1">
+    <div class="controles-container">
+
+      <mat-form-field>
+        <input formControlName="clientName" matInput placeholder="اسم العميل" />
+        <mat-error>مطلوب</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input formControlName="frameName" matInput placeholder="اسم الفريم" />
+        <mat-error>مطلوب</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select formControlName="Governorate" placeholder=" المحافظة ">
+          <mat-option>-- اختر --</mat-option>
+          <!--  <ng-container>
+            <mat-option [value]="">
+           {{item.name}}
+        </mat-option>
+        </ng-container>
+      -->
+
+        </mat-select>
+        <mat-error>مطلوب</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select formControlName="central" placeholder=" السنترال ">
+          <mat-option>-- اختر --</mat-option>
+          <!--  <ng-container>
+            <mat-option [value]="">
+           {{item.name}}
+        </mat-option>
+        </ng-container>
+      -->
+
+        </mat-select>
+        <mat-error>مطلوب</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select formControlName="problemType" placeholder="نوع المشكلة ">
+          <mat-option>-- اختر --</mat-option>
+          <!--  <ng-container>
+            <mat-option [value]="">
+           {{item.name}}
+        </mat-option>
+        </ng-container>
+      -->
+
+        </mat-select>
+        <mat-error>مطلوب</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select formControlName="problemPlace" placeholder="تحديد مكان المشكلة ">
+          <mat-option>-- اختر --</mat-option>
+          <!--  <ng-container>
+            <mat-option [value]="">
+           {{item.name}}
+        </mat-option>
+        </ng-container>
+      -->
+
+        </mat-select>
+        <mat-error>مطلوب</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="number"  min="0" formControlName="circutNo" matInput placeholder="رقم الدائرة" />
+        <mat-error>مطلوب</mat-error>
+      </mat-form-field>
+
+
+    </div>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="1">
+    <div class="controles-container">
+      <mat-form-field>
+        <input formControlName="port" matInput placeholder="البورت" />
+        <mat-error>مطلوب</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input formControlName="clientAddress" matInput placeholder="عنوان العميل" />
+        <mat-error>مطلوب</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input formControlName="clientNum" matInput placeholder="رقم العميل" />
+        <mat-error>مطلوب</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input formControlName="power" matInput placeholder="تاكيد الباور" />
+        <mat-error>مطلوب</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input formControlName="TicketNum" matInput placeholder="رقم التكت" />
+        <mat-error>مطلوب</mat-error>
+      </mat-form-field>
+
+
+
+
+      <mat-form-field>
+        <mat-label>اضافة ميل المصرية</mat-label>
+        <button mat-icon-button matPrefix  type="button" (click)="f_input.click()">
+          <mat-icon>attach_file</mat-icon>
+        </button>
+        <input type="text" readonly matInput   formControlName="attachFile" />
+        <input
+          type="file"
+          hidden
+          #f_input
+          (change)="handleFileInputChange($event)" (click)="f_input.value=null"
+        />
+
+        <mat-error> * مطلوب </mat-error>
+
+      </mat-form-field>
+      <div class="box">
+        <mat-list>
+          <mat-list-item>
+          <mat-icon mat-list-icon class=" text-danger" (click)="removeFile()">delete_forever</mat-icon>
+
+          <div mat-line>{{ fileName }}</div>
+          <mat-icon>insert_drive_file</mat-icon>
+        </mat-list-item>
+        </mat-list>
+       </div>
+
+    </div>
+  </mat-grid-tile>
+
+
+</mat-grid-list>
+<mat-toolbar class="bottom">
+  <div class="button-row w-100 text-center">
+    <button mat-raised-button class="btn-success w-50" type="submit">
+      ارسال
+    </button>
+  </div>
+</mat-toolbar>
+</form>

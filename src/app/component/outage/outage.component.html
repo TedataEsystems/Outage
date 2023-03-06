@@ -1,0 +1,462 @@
+<div class="my-3" dir="rtl">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> بحث متقدم </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <form [formGroup]="form" (submit)="AdvancedSearchSubmit()">
+        <mat-grid-list cols="4" rowHeight="300px">
+          <mat-grid-tile>
+            <div class="controles-container">
+
+               <mat-form-field appearance="fill">
+                <input formControlName="clientName" matInput placeholder="اسم العميل" />
+                <mat-error>مطلوب</mat-error>
+              </mat-form-field>
+               <mat-form-field appearance="fill">
+                <input formControlName="frameName" matInput placeholder="اسم الفريم" />
+                <mat-error>مطلوب</mat-error>
+              </mat-form-field>
+               <mat-form-field appearance="fill">
+                <mat-select formControlName="Governorate" placeholder=" المحافظة ">
+                  <mat-option>-- اختر --</mat-option>
+                  <!--  <ng-container>
+                    <mat-option [value]="">
+                   {{item.name}}
+                </mat-option>
+                </ng-container>
+              -->
+
+                </mat-select>
+                <mat-error>مطلوب</mat-error>
+              </mat-form-field>
+               <mat-form-field appearance="fill">
+                <mat-select formControlName="central" placeholder=" السنترال ">
+                  <mat-option>-- اختر --</mat-option>
+                  <!--  <ng-container>
+                    <mat-option [value]="">
+                   {{item.name}}
+                </mat-option>
+                </ng-container>
+              -->
+
+                </mat-select>
+                <mat-error>مطلوب</mat-error>
+              </mat-form-field>
+
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="controles-container">
+               <mat-form-field appearance="fill">
+                <mat-select formControlName="problemType" placeholder="نوع المشكلة ">
+                  <mat-option>-- اختر --</mat-option>
+                  <!--  <ng-container>
+                    <mat-option [value]="">
+                   {{item.name}}
+                </mat-option>
+                </ng-container>
+              -->
+
+                </mat-select>
+                <mat-error>مطلوب</mat-error>
+              </mat-form-field>
+               <mat-form-field appearance="fill">
+                <mat-select formControlName="problemPlace" placeholder="تحديد مكان المشكلة ">
+                  <mat-option>-- اختر --</mat-option>
+                  <!--  <ng-container>
+                    <mat-option [value]="">
+                   {{item.name}}
+                </mat-option>
+                </ng-container>
+              -->
+
+                </mat-select>
+                <mat-error>مطلوب</mat-error>
+              </mat-form-field>
+               <mat-form-field appearance="fill">
+                <input type="number"  min="0" formControlName="circutNo" matInput placeholder="رقم الدائرة" />
+                <mat-error>مطلوب</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <input formControlName="port" matInput placeholder="البورت" />
+                <mat-error>مطلوب</mat-error>
+              </mat-form-field>
+            </div>
+
+
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="controles-container">
+              
+               <mat-form-field appearance="fill">
+                <input formControlName="clientAddress" matInput placeholder="عنوان العميل" />
+                <mat-error>مطلوب</mat-error>
+              </mat-form-field>
+               <mat-form-field appearance="fill">
+                <input formControlName="clientNum" matInput placeholder="رقم العميل" />
+                <mat-error>مطلوب</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <input formControlName="power" matInput placeholder="تاكيد الباور" />
+                <mat-error>مطلوب</mat-error>
+              </mat-form-field>
+               <mat-form-field appearance="fill">
+                <input formControlName="TicketNum" matInput placeholder="رقم التكت" />
+                <mat-error>مطلوب</mat-error>
+              </mat-form-field>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="controles-container">
+
+              
+
+
+              <mat-form-field appearance="fill"  class="serch w-100">
+                <mat-select formControlName="statusId"  placeholder=" *الحاله (--اختر--) ">
+                  <mat-option>-- Please select --</mat-option>
+
+                </mat-select>
+              </mat-form-field>
+
+
+              <div class="w-100 d-flex" >
+              <mat-form-field appearance="fill" class="serch w-50">
+                <mat-label>اسم المنشأ</mat-label>
+                <input matInput formControlName="createdBy" />
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="w-50  serch" style="border-right:5px solid #fff">
+                <mat-label>اسم المعدل</mat-label>
+                <input matInput formControlName="updatedBy" />
+              </mat-form-field>
+              </div>
+
+            <div class="w-100 d-flex" >
+
+              <mat-form-field appearance="fill" class="w-50 serch">
+                <mat-label>تاريخ الانشاء</mat-label>
+                  <input formControlName="createdDateFrom" matInput [matDatepicker]="createdDateFrom" placeholder="من ">
+                  <mat-datepicker-toggle matSuffix [for]="createdDateFrom"></mat-datepicker-toggle>
+                  <mat-datepicker #createdDateFrom></mat-datepicker>
+                </mat-form-field>
+
+              <mat-form-field appearance="fill" class="w-50  serch" style="border-right:5px solid #fff">
+                  <input formControlName="createdDateTo" matInput [matDatepicker]="createdDateTo" placeholder="الى" [min]="form.controls.createdDateFrom?.value">
+                  <mat-datepicker-toggle matSuffix [for]="createdDateTo"></mat-datepicker-toggle>
+                  <mat-datepicker #createdDateTo></mat-datepicker>
+                </mat-form-field>
+
+              </div>
+              <div class="w-100 d-flex">
+                <mat-form-field appearance="fill" class="w-50 serch">
+                  <mat-label>تاريخ التعديل</mat-label>
+                    <input formControlName="updatedDateFrom" matInput [matDatepicker]="updatedDateFrom" placeholder="من">
+                    <mat-datepicker-toggle matSuffix [for]="updatedDateFrom"></mat-datepicker-toggle>
+                    <mat-datepicker #updatedDateFrom></mat-datepicker>
+                  </mat-form-field>
+                <mat-form-field appearance="fill" class="w-50 serch"  style="border-right:5px solid #fff">
+                    <input formControlName="updatedDateTo" matInput [matDatepicker]="updatedDateTo" placeholder="الى" [min]="form.controls.updatedDateFrom?.value">
+                    <mat-datepicker-toggle matSuffix [for]="updatedDateTo"></mat-datepicker-toggle>
+                    <mat-datepicker #updatedDateTo></mat-datepicker>
+                  </mat-form-field>
+                </div>
+
+                </div>
+
+
+          </mat-grid-tile>
+        </mat-grid-list>
+        <div class="w-100 d-flex justify-content-end btn-group">
+          <input
+            mat-raised-button
+            value="مسح "
+            class="btn-danger text-center mx-1 ser"
+            (click)="clearAdvancedSearch()"
+            readonly
+          />
+
+          <button mat-raised-button class="ser" color="warn">بحث</button>
+        </div>
+      </form>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title> الانقطاعات </mat-card-title>
+    <button  mat-button class="opt" (click)="addTicket()">
+      <mat-icon class="add-new ico">add</mat-icon>
+      <span class="txt mr-1">اضافة طلب</span>
+    </button>
+
+
+  </mat-card-header>
+  <mat-divider></mat-divider>
+
+  <div class="search-div" fxLayout="row">
+    <mat-form-field class="search-form-field" floatLabel="never">
+      <input
+        matInput
+        [(ngModel)]="searchKey"
+        placeholder="بحث"
+        autocomplete="off"
+        (keyup)="applyFilter()"
+      />
+      <button
+        mat-button
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        *ngIf="searchKey"
+        (click)="onSearchClear()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <div class="example-container mat-elevation-z8">
+    <mat-table
+      [dataSource]="dataSource"
+      #table
+      matSort
+      (matSortChange)="sortData($event)"
+      matSortActive="Name"
+      matSortDirection="asc"
+      matSortDisableClear
+    >
+
+
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >الرقم</mat-header-cell
+        >
+          <mat-cell *matCellDef="let element">
+          {{ element.id }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="clientName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          اسم العميل</mat-header-cell
+        >
+        <mat-cell *matCellDef="let element">
+          {{ element.clientName }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="frameName">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+          اسم الفريم
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <ng-container>
+            {{ element.frameName }}
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Governorate">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+          المحافظة
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <ng-container>
+            {{ element.Governorate }}
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="central">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+           السنترال
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <ng-container>
+            {{ element.central }}
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="problemType">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+          نوع المشكلة
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <ng-container>
+            {{ element.problemType }}
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="problemPlace">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+          مكان المشكلة
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <ng-container>
+            {{ element.problemPlace }}
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="circutNo">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+          رقم الدائرة
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <ng-container>
+            {{ element.circutNo }}
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="port">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+           البورت
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <ng-container>
+            {{ element.port }}
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="clientAddress">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+           عنوان العميل
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <ng-container>
+            {{ element.clientAddress }}
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="clientNum">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+          رقم العميل
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <ng-container>
+            {{ element.clientNum }}
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="power">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+          تاكيد الباور
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <ng-container>
+            {{ element.power }}
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="TicketNum">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+          رقم التكت
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <ng-container>
+            {{ element.TicketNum }}
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+          الحاله</mat-header-cell
+        >
+        <mat-cell *matCellDef="let element"  [ngClass]="{'red':element.status=='rejected','green' : element.status=='approved','ora' : element.status=='pending'}"> {{ element.status }} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="creationDate">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+          تاريخ الانشاء</mat-header-cell
+        >
+        <mat-cell *matCellDef="let element">
+          {{ element.creationDate | date : "yyyy-MM-dd" }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="updateDate">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+          تاريخ التعديل</mat-header-cell
+        >
+        <mat-cell *matCellDef="let element">
+          {{ element.updateDate | date : "yyyy-MM-dd" }}
+        </mat-cell>
+      </ng-container>
+
+
+
+
+
+
+      <ng-container matColumnDef="createdBy">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+          الانشاء بواسطة</mat-header-cell
+        >
+        <mat-cell *matCellDef="let element"> {{ element.createdBy }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="updatedBy">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header
+          > التعديل بواسطة</mat-header-cell
+        >
+        <mat-cell *matCellDef="let element"> {{ element.updatedBy }} </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="action" sticky>
+        <mat-header-cell *matHeaderCellDef> الاجراء </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="action">
+          <ng-container>
+
+            <button
+              mat-button
+
+              class="btn-success mx-1 font-weight-bolder"
+              matTooltip="تعديل"
+              (click)="onEdit(row)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+
+
+            <button
+              mat-button
+              class="btn-danger"
+
+              matTooltip="حذف"
+              (click)="onDelete(row)"
+            >
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="noData">
+        <mat-footer-cell *matFooterCellDef colspan="13">
+          لا يوجد بيانات...
+        </mat-footer-cell>
+      </ng-container>
+
+      <mat-footer-row
+        *matFooterRowDef="['noData']"
+        [ngClass]="{
+          hide: !(dataSource.data.length == 0 && dataSource != null)
+        }"
+      ></mat-footer-row>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+    <!-- end test -->
+  </div>
+  <!-- </ng-template> -->
+  <mat-paginator
+    [pageSizeOptions]="[10, 25, 50, 100]"
+    [pageSize]="10"
+
+    showFirstLastButtons
+  >
+  </mat-paginator>
+</mat-card>

@@ -1,0 +1,68 @@
+<mat-toolbar>
+  <div>
+    <a routerLink="/">
+      <img src="../../../../assets/image/ccc.png" height="34" width="150" />
+    </a>
+  </div>
+
+  <div fxFlex fxLayout fxLayoutAlign="end">
+    <ul fxLayout fxLayoutGap="5px" class="navigation.items">
+      <li>
+        <button mat-icon-button>
+          <mat-icon>account_circle</mat-icon>
+        </button>
+        <span> userName </span>
+      </li>
+      <li>
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          matTooltip="الاعدادات"
+          aria-label="Example icon-button with a menu"
+        >
+          <mat-icon>settings</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+
+          <span class="subheader" >اعدادات حالة الطلب  <mat-icon>settings</mat-icon></span>
+          <a mat-menu-item routerLink="./status" routerLinkActive="active">
+            الحالة  </a
+          >
+          <span class="subheader" >اعدادات المشكلة  <mat-icon>settings</mat-icon></span>
+          <a mat-menu-item routerLink="./problemType" routerLinkActive="active">
+            نوع المشكلة  </a
+          >
+          <a mat-menu-item routerLink="./problemPlace" routerLinkActive="active"
+            > مكان المشكلة</a
+          >
+ <span class="subheader" >اعدادات المستخدم  <mat-icon>settings</mat-icon></span>
+
+ <a mat-menu-item routerLink="./user" routerLinkActive="active">
+   المستخدم  </a
+>
+<a mat-menu-item routerLink="./role" routerLinkActive="active">
+  الصلاحية  </a
+>
+
+
+
+        </mat-menu>
+      </li>
+      <li>
+        <a
+          mat-icon-button
+          matTooltip="السجلات"
+          routerLink="./history"
+          routerLinkActive="active"
+        >
+          <mat-icon>history</mat-icon>
+        </a>
+      </li>
+      <li>
+        <button mat-icon-button (click)="logOut()" matTooltip="تسجيل الخروج">
+          <mat-icon>logout</mat-icon>
+        </button>
+      </li>
+    </ul>
+  </div>
+</mat-toolbar>

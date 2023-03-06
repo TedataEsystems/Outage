@@ -1,0 +1,41 @@
+<div>
+  <app-header></app-header>
+
+  <mat-toolbar>
+    <div class="brand-box">
+      <img src="../../../../assets/image/we-Logo/we-black.jpg" width="70" height="65px">
+
+    </div>
+    <div class="brandTitle">
+    <span class="brand ml-3"> Outage</span>
+    </div>
+       <span class="example-spacer"></span>
+
+       <div fxShow="true" fxFlex fxLayout fxLayoutAlign="center" role="menu" dir="rtl">
+         <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+
+         <a  mat-button routerLink ="/outage" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">الصفحة الرئيسية</a>
+         <a  mat-button routerLink="./outages"  routerLinkActive="active">الانقطاعات</a>
+       </div>
+
+
+     </mat-toolbar>
+
+  <mat-sidenav-container fxFlexFill class="example-container">
+
+      <mat-sidenav-content fxFlexFill>
+
+          <router-outlet>
+          </router-outlet>
+          <ngx-spinner type="timer">
+            <h5>Loading</h5>
+          </ngx-spinner>
+          <button  (click)="scrollToTop()" [@fadeInOut] class="scroll-to-top" *ngIf="pageYoffset > 0" >
+            <mat-icon>arrow_upward</mat-icon>
+          </button>
+       <app-footer></app-footer>
+
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+
+  </div>
