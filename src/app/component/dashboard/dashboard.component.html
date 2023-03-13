@@ -65,14 +65,18 @@
         </div>
 
          <hr class="breakline">
-         <div class="detailscharttxt">
-             <div class="detailschartblocks">
+         <div class="detailscharttxt" >
+            <div class="detailschartblocks" *ngFor="let statusName of chartData.statusNameList">
+                <span id="MainContent_monthstat_lbl" class="lblbigtxt">33</span>
+                <label class="lblbigtxtunder item1">{{statusName}} </label>
+            </div>
+             <!-- <div class="detailschartblocks">
 
 
                  <span id="MainContent_monthstat_lbl" class="lblbigtxt">54</span>
                  <label class="lblbigtxtunder item1">Total Approved </label>
-             </div>
-             <div class="detailschartblocks">
+             </div> -->
+             <!-- <div class="detailschartblocks">
 
                  <span id="MainContent_totalevu_lbl" class="lblbigtxt">5</span>
 
@@ -83,13 +87,13 @@
               <span id="MainContent_totalevu_lbl" class="lblbigtxt">34</span>
 
               <label class="lblbigtxtunder item3">Total Rejected </label>
-          </div>
+          </div> -->
              </div>
              <hr class="breakline">
              <div class="text-center">
 
 
-              <span id="MainContent_monthstat_lbl" class="lblbigtxt">55</span>
+              <span id="MainContent_monthstat_lbl" class="lblbigtxt">{{chartData.totalCount}}</span>
               <label class="lblbigtxtundero mt-3">Total  </label>
           </div>
 

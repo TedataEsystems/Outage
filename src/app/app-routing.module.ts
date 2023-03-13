@@ -3,8 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { LogsComponent } from './component/logs/logs.component';
 import { ApproveStatusComponent } from './component/settings/approve-status/approve-status.component';
-import { RoleComponent } from './component/settings/role/role.component';
-import { UserComponent } from './component/settings/user/user.component';
 import { ErrorPageComponent } from './shared/component/error-page/error-page.component';
 import { LayoutComponent } from './shared/component/layout/layout.component';
 import { LoginComponent } from './shared/component/login/login.component';
@@ -12,6 +10,8 @@ import { AuthGuardGuard } from './auth-guard.guard';
 import { OutageComponent } from './component/outage/outage.component';
 import { ProblemPlaceComponent } from './component/settings/problem-place/problem-place.component';
 import { ProblemTypeComponent } from './component/settings/problem-type/problem-type.component';
+import { GovernorateComponent } from './component/settings/governorate/governorate.component';
+import { CentralComponent } from './component/settings/central/central.component';
 
 const routes: Routes = [
   {
@@ -50,25 +50,21 @@ const routes: Routes = [
   component:ProblemTypeComponent,
   // canActivate:[AuthGuardGuard]
 },
-
-
-    {
-      path:'user',
-      component: UserComponent,
-     // canActivate:[AuthGuardGuard]
-    },
-    {
-      path:'role',
-      component: RoleComponent,
-//canActivate:[AuthGuardGuard]
-    },
-
     {
       path:'status',
       component: ApproveStatusComponent,
      // canActivate:[AuthGuardGuard]
     },
-
+    {
+      path:'governorate',
+      component: GovernorateComponent,
+     // canActivate:[AuthGuardGuard]
+    },
+    {
+      path:'central',
+      component: CentralComponent,
+     // canActivate:[AuthGuardGuard]
+    },
     {
       path:'history',
       component: LogsComponent,

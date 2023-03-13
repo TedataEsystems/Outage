@@ -3,7 +3,7 @@
       <mat-card-title>
         نوع المشكلة 
       </mat-card-title>
-      <button mat-button class="opt"  (click)=addStatus()>
+      <button mat-button class="opt"  (click)=addProblemType()>
           <mat-icon class="add-new ico">add</mat-icon>
           <span class="txt mr-1">اضافة </span>
       </button>
@@ -15,9 +15,9 @@
 
       <mat-form-field class="example-full-width">
         <mat-label> نوع المشكلة</mat-label>
-        <input type="text" #statusName  matInput formControlName="Name" (keyup)="IsAddNameRepeated()" >
+        <input type="text" #ProblemTypeName  matInput formControlName="Name" (keyup)="IsAddNameRepeated()" >
         <input type="hidden"  formControlName="Id" >
-        <span class="mat-err" *ngIf="isNameRepeated&&statusName.value!=''">مسجلة مسبقاً <strong>&nbsp;!</strong></span>
+        <span class="mat-err" *ngIf="isNameRepeated&&ProblemTypeName.value!=''">مسجلة مسبقاً <strong>&nbsp;!</strong></span>
 
         <mat-error>* مطلوب</mat-error>
       </mat-form-field>
@@ -47,7 +47,7 @@
 
 
 
-<ng-container matColumnDef="status">
+<ng-container matColumnDef="ProblemType">
   <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>  نوع المشكلة</mat-header-cell>
   <mat-cell *matCellDef="let element" >
     <ng-container *ngIf="!editdisabled || element.id!=editUsr">
@@ -55,10 +55,10 @@
      </ng-container>
      <ng-container *ngIf="editdisabled  && element.id==editUsr">
        <mat-form-field hideRequiredMarker="false" appearance="legacy">
-         <input matInput placeholder="نوع المشكلة" #status name="name" [(ngModel)]="element.name" (keyup)="IsUpdateNameRepeated(element)" >
-         <span class="mat-err1" *ngIf="isNameUpdatedRepeated && element.id == editUsr&& status.value!=''"><strong>!   &nbsp;</strong>مسجلة مسبقاً </span>
+         <input matInput placeholder="نوع المشكلة" #ProblemType name="name" [(ngModel)]="element.name" (keyup)="IsUpdateNameRepeated(element)" >
+         <span class="mat-err1" *ngIf="isNameUpdatedRepeated && element.id == editUsr&& ProblemType.value!=''"><strong>!   &nbsp;</strong>مسجلة مسبقاً </span>
 
-           <span class="mat-err1" *ngIf="status.value==''">* مطلوب</span>
+           <span class="mat-err1" *ngIf="ProblemType.value==''">* مطلوب</span>
        </mat-form-field>
        </ng-container>
      </mat-cell>

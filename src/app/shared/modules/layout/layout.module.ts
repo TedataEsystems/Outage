@@ -24,9 +24,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorPageComponent } from '../../component/error-page/error-page.component';
 import { LogsComponent } from 'src/app/component/logs/logs.component';
-import { UserComponent } from 'src/app/component/settings/user/user.component';
-import { AddUserComponent } from '../../../component/Forms/add-user/add-user.component';
-import { RoleComponent } from '../../../component/settings/role/role.component';
 import { ApproveStatusComponent } from '../../../component/settings/approve-status/approve-status.component';
 import { SplitPipe } from 'src/app/pipes/split.pipe';
 import { LoadingService } from '../../service/loading.service';
@@ -35,6 +32,8 @@ import { AddTicketComponent } from '../../../component/Forms/add-ticket/add-tick
 import { EditTicketComponent } from '../../../component/Forms/edit-ticket/edit-ticket.component';
 import { ProblemTypeComponent } from '../../../component/settings/problem-type/problem-type.component';
 import { ProblemPlaceComponent } from '../../../component/settings/problem-place/problem-place.component';
+import { CentralComponent } from 'src/app/component/settings/central/central.component';
+import { GovernorateComponent } from 'src/app/component/settings/governorate/governorate.component';
 
 @NgModule({
   declarations: [
@@ -46,16 +45,15 @@ import { ProblemPlaceComponent } from '../../../component/settings/problem-place
     LoaderComponent,
     ErrorPageComponent,
     LogsComponent,
-    UserComponent,
-    AddUserComponent,
-    RoleComponent,
     ApproveStatusComponent,
     SplitPipe,
     OutageComponent,
     AddTicketComponent,
     EditTicketComponent,
     ProblemTypeComponent,
-    ProblemPlaceComponent
+    ProblemPlaceComponent,
+    CentralComponent,
+    GovernorateComponent
 
   ],
   imports: [

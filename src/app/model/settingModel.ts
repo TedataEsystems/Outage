@@ -1,4 +1,4 @@
-export interface MissionType {
+export interface settingModel {
     id?: number;
     name?: string;
     createdBy?:string;

@@ -7,8 +7,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Status } from 'src/app/model/status';
+import { settingModel } from 'src/app/model/settingModel';
 import { DeleteService } from 'src/app/shared/service/delete.service';
+import { ProblemLocationService } from 'src/app/shared/service/problem-location.service';
 
 @Component({
   selector: 'app-problem-place',
@@ -17,7 +18,7 @@ import { DeleteService } from 'src/app/shared/service/delete.service';
 })
 export class ProblemPlaceComponent implements OnInit {
 
-  statusList:Status[]=[];
+  ProblemPlaceList:settingModel[]=[];
   isShowDiv = false;
   isNameRepeated: boolean = false;
   searchKey: string = '';
@@ -35,13 +36,12 @@ export class ProblemPlaceComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   @ViewChild(MatSort) sort?: MatSort;
-  displayedColumns: string[] = ['Id','status','createdBy' ,'creationDate', 'updatedBy','updateDate', 'action'];
+  displayedColumns: string[] = ['Id','ProblemPlace','createdBy' ,'creationDate', 'updatedBy','updateDate', 'action'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
   dataSource = new MatTableDataSource();
-  settingtype = ''
-  // Status = {id: 0,name:'',createdBy:''}
+  settingplace = ''
 
-  constructor(private titleService: Title,private toastr:ToastrService, private router: Router,
+  constructor(private problemLocationService: ProblemLocationService ,private titleService: Title,private toastr:ToastrService, private router: Router,
     private route: ActivatedRoute, private dailogService: DeleteService, private dialog:MatDialog
   ) {
     this.titleService.setTitle('مكان المشكلة');
@@ -56,9 +56,21 @@ export class ProblemPlaceComponent implements OnInit {
 
 
 
+  getRequestdata(pageNum: number, pageSize: number, search: string, sortColumn: string, sortDir: string) {
+    this.loader = true;
+    this.problemLocationService.getProblemLocation(pageNum, pageSize, search, sortColumn, sortDir).subscribe(response => {
+      this.ProblemPlaceList = response?.data;
+      this.ProblemPlaceList.length = response?.pagination.totalCount;
+      this.dataSource = new MatTableDataSource<any>(this.ProblemPlaceList);
+      this.dataSource._updateChangeSubscription();
+      this.dataSource.paginator = this.paginator as MatPaginator;
+    })
+    setTimeout(() => this.loader = false, 2000);
+  }
+
 
   ngOnInit(): void {
-
+    this.getRequestdata(1, 100, '', this.sortColumnDef, this.SortDirDef);
   }
 
 
@@ -66,20 +78,7 @@ export class ProblemPlaceComponent implements OnInit {
     this.dataSource.sort = this.sort as MatSort;
     this.dataSource.paginator = this.paginator as MatPaginator;
   }
-  onDelete(r:any) {
 
-    this.dailogService.openConfirmDialog().afterClosed().subscribe(res => {
-      if(res)
-      {
-
-        this.toastr.success(' successfully Deleted');
-
-      }
-    })
-
-
-
-  }
 
 editROw(r: any) {
 
@@ -96,91 +95,126 @@ cancelEdit() {
 
 }
 OnEditSubmit(row: any) {
-  let status={
-    id:row.id,
-    name:row.name,
-    createdBy:row.createdBy,
-    creationDate:row.creationDate,
+  let Problemplace = {
+    id: row.id,
+    name: row.name,
+    createdBy: row.createdBy,
+    creationDate: row.creationDate,
     updatedBy: localStorage.getItem('userName') || '',
   };
-
-
-
+  this.problemLocationService.updateProblemLocation(Problemplace).subscribe(res => {
+    debugger
+    if (res.problemLocation) {
+      setTimeout(() => {
+        this.loader = false;
+      }, 1500)
+      this.toastr.success(" update successfully");
+      this.form['controls']['Name'].setValue('');
+      this.form['controls']['Id'].setValue(0);
+      this.cancelEdit();
+      this.getRequestdata(1, 100, '', this.sortColumnDef, this.SortDirDef);
+    }
+  })
 }
 
 
 
-addStatus(){
 
-  // const dialogGonfig = new MatDialogConfig();
-  // dialogGonfig.data= {dialogTitle: " "};
-  // dialogGonfig.disableClose = true;
-  // dialogGonfig.autoFocus = true;
-  // dialogGonfig.width = "50%";
-  // dialogGonfig.panelClass = 'modals-dialog';
-  //  this.dialog.open(AddApproveStatusComponent,dialogGonfig)
-  this.form.reset();
-  this.isShowDiv = !this.isShowDiv;
 
+addProblemPlace(){
+this.form.reset();
+this.isShowDiv = !this.isShowDiv;
 }
+
 setReactValue(id: number, val: any) {
-  this.form.patchValue({
-    id: id,
-    name: val
-
-  });
-
+this.form.patchValue({
+  id: id,
+  name: val});
 }
+
 onAddSubmit() {
-  let status={
-    id:0,
-    name:this.form.value.Name,
-    createdBy: localStorage.getItem('userName') || ''
-  };
-  if (this.form.valid ) {
-   
-    this.isShowDiv = false;
+let ProblemPlace = {
+  id: 0,
+  name: this.form.value.Name,
+  createdBy: localStorage.getItem('userName') || ''
+};
+if (this.form.valid) {
+  this.problemLocationService.addProblemLocation(ProblemPlace).subscribe(res => {
+    this.form['controls']['Name'].setValue('');
+    this.form['controls']['Id'].setValue(0);
+    this.toastr.success("Succesfully added");
+    this.getRequestdata(1, 100, '', this.sortColumnDef, this.SortDirDef);
+  })
+  this.isShowDiv = false;
+}
+}
+
+onSearchClear() {
+this.searchKey = '';
+this.applyFilter();
+}
+
+applyFilter() {
+let searchData = this.searchKey.trim().toLowerCase();
+this.getRequestdata(1, 100, searchData, this.sortColumnDef, "asc");
+}
+
+IsAddNameRepeated() {
+let ProblemPlace = {
+  name: this.form.value.Name,
+  id: 0
+};
+if (this.form.valid) {
+  this.problemLocationService.isNameRepeated(ProblemPlace.name, ProblemPlace.id).subscribe(
+    res => {
+      if (res.flag == true) {
+        this.isDisabled = false;
+        this.isNameRepeated = false;
+      } else {
+        this.isDisabled = true;
+        this.isNameRepeated = true;
+      }
+    });
+}
+}
+
+IsUpdateNameRepeated(row: any) {
+let ProblemPlace = {
+  name: row.name,
+  id: row.id
+};
+if (row.name.trim().length > 0 && row.name.trim() != '') {
+  this.problemLocationService.isNameRepeated(ProblemPlace.name, ProblemPlace.id).subscribe(
+    res => {
+      if (res.flag == true) {
+        this.isDisabled = false;
+        this.isNameUpdatedRepeated = false;
+      } else {
+        this.isDisabled = true;
+        this.isNameUpdatedRepeated = true;
+      }
+    });
+}
+else {
+  this.isDisabled = true;
+}
+}
+onDelete(r:any) {
+
+this.dailogService.openConfirmDialog().afterClosed().subscribe(res => {
+  if(res)
+  {
+    this.problemLocationService.deleteProblemLocation(r.id).subscribe(res=>{
+    this.toastr.success(' successfully Deleted');
+    this.getRequestdata(1, 100, '', this.sortColumnDef, this.SortDirDef);
+    }),
+    error => { this.toastr.error(' An Error Occured') }
   }
-
-
+})
 
 
 
 }
-
-  onSearchClear() {
-    this.searchKey = '';
-    this.applyFilter();
-  }
-
-  applyFilter() {
-    let searchData = this.searchKey.trim().toLowerCase();
-   
-  }
-
-  IsAddNameRepeated() {
-    let status={
-    name:this.form.value.Name,
-    id:0
-  };
-  if(this.form.valid)
-  {
-   //code here
-  }}
-
-  IsUpdateNameRepeated(row: any) {
-    let status={
-      name:row.name,
-      id:row.id
-    };
-    if(row.name.trim().length>0&&row.name.trim()!='')
-     {
-      //code here
-    }
-    else{
-      this.isDisabled=true;
-    }
-  }
   pageIn = 0;
   public pIn: number = 0;
   lastcol: string = 'Id';

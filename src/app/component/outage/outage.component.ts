@@ -6,7 +6,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
+import { Ioutage } from 'src/app/model/Ioutage';
 import { DeleteService } from 'src/app/shared/service/delete.service';
+import { OutageFormService } from 'src/app/shared/service/outage-form.service';
 import { AddTicketComponent } from '../Forms/add-ticket/add-ticket.component';
 import { EditTicketComponent } from '../Forms/edit-ticket/edit-ticket.component';
 
@@ -16,10 +18,12 @@ import { EditTicketComponent } from '../Forms/edit-ticket/edit-ticket.component'
   styleUrls: ['./outage.component.css']
 })
 export class OutageComponent implements OnInit {
-
+  outageList: any[] = [];
+  sortColumnDef: string = "Id";
+  SortDirDef: string = 'asc';
   searchKey: string = '';
   warning = false;
-
+  loader = false;
   lastcol: string = 'Id';
   lastdir: string = 'asc';
   @ViewChild(MatPaginator) paginator?: MatPaginator;
@@ -60,7 +64,7 @@ export class OutageComponent implements OnInit {
     statusId: new FormControl(''),
     clientName: new FormControl(''),
     frameName: new FormControl(''),
-    Governorate : new FormControl(''),
+    Governorate: new FormControl(''),
     central: new FormControl(''),
     problemType: new FormControl(''),
     problemPlace: new FormControl(''),
@@ -76,52 +80,67 @@ export class OutageComponent implements OnInit {
     private toastr: ToastrService,
     private dialog: MatDialog,
     private dailogService: DeleteService,
+    private outageService: OutageFormService
 
   ) {
     this.titleService.setTitle('الانقطاعات');
   }
 
   ngOnInit(): void {
+    this.getRequestdata(1, 100, '', this.sortColumnDef, this.SortDirDef);
   }
 
-//when empty search input
-onSearchClear() {
-  this.searchKey = '';
-  this.applyFilter();
-}
-// when add search value and key up
-applyFilter() {
 
-  let searchData = this.searchKey.trim().toLowerCase();
+  getRequestdata(pageNum: number, pageSize: number, search: string, sortColumn: string, sortDir: string) {
+    this.loader = true;
+    this.outageService.getOutages(pageNum, pageSize, search, sortColumn, sortDir).subscribe(response => {
+      this.outageList = response?.data;
+      this.outageList.length = response?.pagination.totalCount;
+      this.dataSource = new MatTableDataSource<any>(this.outageList);
+      this.dataSource._updateChangeSubscription();
+      this.dataSource.paginator = this.paginator as MatPaginator;
+    })
+    setTimeout(() => this.loader = false, 2000);
+  }
 
-} //applyfilter
+  //when empty search input
+  onSearchClear() {
+    this.searchKey = '';
+    this.applyFilter();
+  }
+  // when add search value and key up
+  applyFilter() {
 
-ngAfterViewInit() {
-  this.dataSource.sort = this.sort as MatSort;
-  this.dataSource.paginator = this.paginator as MatPaginator;
-}
+    let searchData = this.searchKey.trim().toLowerCase();
+
+  } //applyfilter
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort as MatSort;
+    this.dataSource.paginator = this.paginator as MatPaginator;
+  }
   AdvancedSearchSubmit() {
 
 
   }
   clearAdvancedSearch() {
-   // this.form.reset();
+    // this.form.reset();
 
   }
 
- //sort
- sortData(sort: any) {
-  if (this.lastcol == sort.active && this.lastdir == sort.direction) {
-    if (this.lastdir == 'asc') {
-      sort.direction = 'desc';
-    } else {
-      sort.direction = 'asc';
+  //sort
+  sortData(sort: any) {
+    if (this.lastcol == sort.active && this.lastdir == sort.direction) {
+      if (this.lastdir == 'asc') {
+        sort.direction = 'desc';
+      } else {
+        sort.direction = 'asc';
+      }
     }
-  }
-  this.lastcol = sort.active;
-  this.lastdir = sort.direction;
+    this.lastcol = sort.active;
+    this.lastdir = sort.direction;
 
- }
+  }
   //////add (open add component as dialog)
   addTicket() {
     const dialogGonfig = new MatDialogConfig();
@@ -134,7 +153,7 @@ ngAfterViewInit() {
       .open(AddTicketComponent, dialogGonfig)
       .afterClosed()
       .subscribe((result) => {
-
+        this.getRequestdata(1, 100, '', this.sortColumnDef, this.SortDirDef);
       });
   }
 
@@ -158,15 +177,16 @@ ngAfterViewInit() {
 
   /////////////////delete
   onDelete(r: any) {
-    this.dailogService
-      .openConfirmDialog()
-      .afterClosed()
-      .subscribe((res) => {
-        if (res) {
-          this.toastr.success('Deleted Successfully');
 
-        } //end of if
-      }); //end of subscribe
 
-    }
+    this.dailogService.openConfirmDialog().afterClosed().subscribe(res => {
+      if (res) {
+        this.outageService.deleteOutage(r.id).subscribe(res => {
+          this.toastr.success(' successfully Deleted');
+          this.getRequestdata(1, 100, '', this.sortColumnDef, this.SortDirDef);
+        }),
+          error => { this.toastr.error(' An Error Occured') }
+      }
+    })
+  }
 }

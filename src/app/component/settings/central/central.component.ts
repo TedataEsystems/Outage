@@ -7,17 +7,18 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Status } from 'src/app/model/status';
+import { settingModel } from 'src/app/model/settingModel';
+import { CentralService } from 'src/app/shared/service/central.service';
 import { DeleteService } from 'src/app/shared/service/delete.service';
-import { StatusService } from 'src/app/shared/service/status.service';
 
 @Component({
-  selector: 'app-approve-status',
-  templateUrl: './approve-status.component.html',
-  styleUrls: ['./approve-status.component.css']
+  selector: 'app-central',
+  templateUrl: './central.component.html',
+  styleUrls: ['./central.component.css']
 })
-export class ApproveStatusComponent implements OnInit {
-  statusList: Status[] = [];
+export class CentralComponent implements OnInit {
+
+  centralList: settingModel[] = [];
   isShowDiv = false;
   isNameRepeated: boolean = false;
   searchKey: string = '';
@@ -35,13 +36,12 @@ export class ApproveStatusComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   @ViewChild(MatSort) sort?: MatSort;
-  displayedColumns: string[] = ['Id', 'status', 'createdBy', 'creationDate', 'updatedBy', 'updateDate', 'action'];
+  displayedColumns: string[] = ['Id', 'Central', 'createdBy', 'creationDate', 'updatedBy', 'updateDate', 'action'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
   dataSource = new MatTableDataSource();
   settingtype = ''
-  // Status = {id: 0,name:'',createdBy:''}
 
-  constructor(private statusService: StatusService, private titleService: Title, private toastr: ToastrService, private router: Router,
+  constructor(private centralService: CentralService, private titleService: Title, private toastr: ToastrService, private router: Router,
     private route: ActivatedRoute, private dailogService: DeleteService, private dialog: MatDialog
   ) {
     this.titleService.setTitle('الحالة');
@@ -57,10 +57,10 @@ export class ApproveStatusComponent implements OnInit {
 
   getRequestdata(pageNum: number, pageSize: number, search: string, sortColumn: string, sortDir: string) {
     this.loader = true;
-    this.statusService.getStatus(pageNum, pageSize, search, sortColumn, sortDir).subscribe(response => {
-      this.statusList = response?.data;
-      this.statusList.length = response?.pagination.totalCount;
-      this.dataSource = new MatTableDataSource<any>(this.statusList);
+    this.centralService.getCentral(pageNum, pageSize, search, sortColumn, sortDir).subscribe(response => {
+      this.centralList = response?.data;
+      this.centralList.length = response?.pagination.totalCount;
+      this.dataSource = new MatTableDataSource<any>(this.centralList);
       this.dataSource._updateChangeSubscription();
       this.dataSource.paginator = this.paginator as MatPaginator;
     })
@@ -83,7 +83,7 @@ export class ApproveStatusComponent implements OnInit {
     this.dailogService.openConfirmDialog().afterClosed().subscribe(res => {
       if(res)
       {
-        this.statusService.deleteStatus(r.id).subscribe(res=>{
+        this.centralService.deleteCentral(r.id).subscribe(res=>{
         this.toastr.success(' successfully Deleted');
         this.getRequestdata(1, 100, '', this.sortColumnDef, this.SortDirDef);
         }),
@@ -104,15 +104,15 @@ export class ApproveStatusComponent implements OnInit {
     this.isNameUpdatedRepeated = false;
   }
   OnEditSubmit(row: any) {
-    let status = {
+    let central = {
       id: row.id,
       name: row.name,
       createdBy: row.createdBy,
       creationDate: row.creationDate,
       updatedBy: localStorage.getItem('userName') || '',
     };
-    this.statusService.updateStatus(status).subscribe(res => {
-      if (res.status) {
+    this.centralService.updateCentral(central).subscribe(res => {
+      if (res.central) {
         setTimeout(() => {
           this.loader = false;
         }, 1500)
@@ -127,7 +127,7 @@ export class ApproveStatusComponent implements OnInit {
 
 
 
-  addStatus() {
+  addCentral() {
     this.form.reset();
     this.isShowDiv = !this.isShowDiv;
   }
@@ -139,13 +139,13 @@ export class ApproveStatusComponent implements OnInit {
     });
   }
   onAddSubmit() {
-    let status = {
+    let central = {
       id: 0,
       name: this.form.value.Name,
       createdBy: localStorage.getItem('userName') || ''
     };
     if (this.form.valid) {
-      this.statusService.addStatus(status).subscribe(res => {
+      this.centralService.addCentral(central).subscribe(res => {
         this.form['controls']['Name'].setValue('');
         this.form['controls']['Id'].setValue(0);
         this.toastr.success("Succesfully added");
@@ -168,13 +168,13 @@ export class ApproveStatusComponent implements OnInit {
   }
 
   IsAddNameRepeated() {
-    let status = {
+    let central = {
       name: this.form.value.Name,
       id: 0};
     if (this.form.valid) {
-      this.statusService.isNameRepeated(status.name, status.id).subscribe(
+      this.centralService.isNameRepeated(central.name, central.id).subscribe(
         res => {
-          if (res.status == true) {
+          if (res.flag == true) {
             this.isDisabled = false;
             this.isNameRepeated = false;
           } else {
@@ -186,14 +186,14 @@ export class ApproveStatusComponent implements OnInit {
   }
 
   IsUpdateNameRepeated(row: any) {
-    let status = {
+    let central = {
       name: row.name,
       id: row.id
     };
     if (row.name.trim().length > 0 && row.name.trim() != '') {
-      this.statusService.isNameRepeated(status.name, status.id).subscribe(
+      this.centralService.isNameRepeated(central.name, central.id).subscribe(
         res => {
-          if (res.status == true) {
+          if (res.flag == true) {
             this.isDisabled = false;
             this.isNameUpdatedRepeated = false;
           } else {
@@ -227,5 +227,6 @@ export class ApproveStatusComponent implements OnInit {
     this.lastcol = sort.active; this.lastdir = sort.direction;
     var c = this.pageIn;
   }
+
 
 }

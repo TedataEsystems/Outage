@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import {ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Color, Label,MultiDataSet } from 'ng2-charts';
+import { ToastrService } from 'ngx-toastr';
+import { Ichart } from 'src/app/model/Ichart';
+import { DashBoardService } from 'src/app/shared/service/dash-board.service';
 
 
 @Component({
@@ -10,6 +13,8 @@ import { Color, Label,MultiDataSet } from 'ng2-charts';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  chartData=<Ichart>{};
+  count:number=0;
   IsAdmin: boolean = true;
   isCreator=false;
    totalPending=0;
@@ -17,17 +22,32 @@ export class DashboardComponent implements OnInit {
    totalRejected=0;
 
 
-  constructor(private title : Title) {
+  constructor(private toastr:ToastrService ,private dashBoardService : DashBoardService , private title : Title) {
     this.title.setTitle("الصفحة الرئيسية")
    }
 
   ngOnInit(): void {
-
+    this.getChartData()
   }
+  getChartData():void{
+    this.dashBoardService.chartData().subscribe(res=>{
+    this.chartData= res.data as Ichart;
+    this.count = this.chartData.totalCount ;
+     this.doughnutChartLabels = this.chartData.statusNameList ;
+     this.doughnutChartData = [this.chartData.statusNameCountList] ;
+     console.log(this.chartData)
+    }
+    ,err=>{this.toastr.warning("occure an error")}
+    );
+
+
+}
 
   /////////////////donut chart//////////////////
-  doughnutChartLabels: Label[] = ['Approved', 'Pending', 'Rejected'];
-  doughnutChartData: MultiDataSet = [];
+  doughnutChartLabels: Label[] = [];
+  doughnutChartData: MultiDataSet =  [
+    []
+  ];
 
   doughnutChartType: ChartType = 'doughnut';
   colors: Color[] = [

@@ -245,7 +245,7 @@
           اسم العميل</mat-header-cell
         >
         <mat-cell *matCellDef="let element">
-          {{ element.clientName }}
+          {{ element.customerName }}
         </mat-cell>
       </ng-container>
 
@@ -265,7 +265,7 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
           <ng-container>
-            {{ element.Governorate }}
+            {{ element.governorate.name }}
           </ng-container>
         </mat-cell>
       </ng-container>
@@ -275,7 +275,7 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
           <ng-container>
-            {{ element.central }}
+            {{ element.central.name }}
           </ng-container>
         </mat-cell>
       </ng-container>
@@ -285,7 +285,7 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
           <ng-container>
-            {{ element.problemType }}
+            {{ element.problemType.name }}
           </ng-container>
         </mat-cell>
       </ng-container>
@@ -295,7 +295,7 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
           <ng-container>
-            {{ element.problemPlace }}
+            {{ element.problemLocation.name }}
           </ng-container>
         </mat-cell>
       </ng-container>
@@ -305,7 +305,7 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
           <ng-container>
-            {{ element.circutNo }}
+            {{ element.circleNumber }}
           </ng-container>
         </mat-cell>
       </ng-container>
@@ -325,7 +325,7 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
           <ng-container>
-            {{ element.clientAddress }}
+            {{ element.custommerAddress }}
           </ng-container>
         </mat-cell>
       </ng-container>
@@ -335,7 +335,7 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
           <ng-container>
-            {{ element.clientNum }}
+            {{ element.customerNumber }}
           </ng-container>
         </mat-cell>
       </ng-container>
@@ -345,7 +345,7 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
           <ng-container>
-            {{ element.power }}
+            {{ element.powerConfirmation }}
           </ng-container>
         </mat-cell>
       </ng-container>
@@ -356,7 +356,7 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
           <ng-container>
-            {{ element.TicketNum }}
+            {{ element.ticketNumber }}
           </ng-container>
         </mat-cell>
       </ng-container>
@@ -364,7 +364,7 @@
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
           الحاله</mat-header-cell
         >
-        <mat-cell *matCellDef="let element"  [ngClass]="{'red':element.status=='rejected','green' : element.status=='approved','ora' : element.status=='pending'}"> {{ element.status }} </mat-cell>
+        <mat-cell *matCellDef="let element"  [ngClass]="{'red':element.status.name =='rejected','green' : element.status.name =='approved','ora' : element.status.name =='pending'}"> {{ element.status.name }} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="creationDate">
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
