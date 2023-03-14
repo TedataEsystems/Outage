@@ -131,5 +131,8 @@ export class OutageFormService {
    return this.http.get(`${this.baseUrl}/DownloadEmptyExcel`,{responseType: 'blob',headers: this.headers});
 
  }
+ AdvancedSearch(searchModel:any):Observable<any>{
+  return this.http.post<any>(`${this.baseUrl}/AdvancedSearch`, searchModel); 
+ }
 
 }

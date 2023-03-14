@@ -6,6 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
+import { AdvancedSearch } from 'src/app/model/advanced-search';
 import { Ioutage } from 'src/app/model/Ioutage';
 import { DeleteService } from 'src/app/shared/service/delete.service';
 import { OutageFormService } from 'src/app/shared/service/outage-form.service';
@@ -28,7 +29,13 @@ export class OutageComponent implements OnInit {
   lastdir: string = 'asc';
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   @ViewChild(MatSort) sort?: MatSort;
-
+  advSearcOutege: AdvancedSearch = <AdvancedSearch>{};
+  outeges: Ioutage[] = [];
+  governorateList: any[] = [];
+  centralList: any[] = [];
+  problemPlaceList: any[] = [];
+  problemTypeList: any[] = [];
+  statuesList: any[] = [];
   displayedColumns: string[] = [
     'id',
     'clientName',
@@ -73,8 +80,9 @@ export class OutageComponent implements OnInit {
     clientAddress: new FormControl(''),
     clientNum: new FormControl(''),
     power: new FormControl(''),
-    TicketNum: new FormControl(''),
+    ticketNum: new FormControl(''),
   });
+
   constructor(
     private titleService: Title,
     private toastr: ToastrService,
@@ -87,6 +95,7 @@ export class OutageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getformLists();
     this.getRequestdata(1, 100, '', this.sortColumnDef, this.SortDirDef);
   }
 
@@ -119,12 +128,50 @@ export class OutageComponent implements OnInit {
     this.dataSource.sort = this.sort as MatSort;
     this.dataSource.paginator = this.paginator as MatPaginator;
   }
-  AdvancedSearchSubmit() {
 
+  AdvancedSearchSubmit() {
+    this.advSearcOutege.createdDateFrom =this.form.value.createdDateFrom == '' ? null: this.form.value.createdDateFrom;
+    this.advSearcOutege.createdDateTo =this.form.value.createdDateTo == '' ? null: this.form.value.createdDateTo;
+    //
+    this.advSearcOutege.updatedDateFrom =this.form.value.updatedDateFrom == '' ? null : this.form.value.updatedDateFrom;
+    this.advSearcOutege.updatedDateTo = this.form.value.updatedDateTo == ''? null : this.form.value.updatedDateTo;
+    //
+    this.advSearcOutege.createdBy = this.form.value.createdBy;
+    this.advSearcOutege.updatedBy = this.form.value.updatedBy;
+    //
+    this.advSearcOutege.id = Number(this.form.value.id);
+
+    this.advSearcOutege.statusId = this.form.value.statusId;
+    this.advSearcOutege.customerName = this.form.value.clientName;
+    this.advSearcOutege.frameName = this.form.value.frameName;
+    this.advSearcOutege.governorateId =this.form.value.governorateId;
+    this.advSearcOutege.centralId =this.form.value.centralId;
+    this.advSearcOutege.problemTypeId = this.form.value.problemTypeId;
+    this.advSearcOutege.problemLocationId =this.form.value.problemLocationId;
+    this.advSearcOutege.circleNumber = this.form.value.circutNo;
+
+    this.advSearcOutege.port = this.form.value.port;
+    this.advSearcOutege.custommerAddress = this.form.value.clientAddress;
+    this.advSearcOutege.customerNumber = this.form.value.clientNum;
+    this.advSearcOutege.powerConfirmation = this.form.value.power;
+    this.advSearcOutege.ticketNumber = this.form.value.ticketNum;
+    //this.advSearcOutege.jobDegreeId = this.form.value.jobDegreeId;
+console.log(this.advSearcOutege,"advSearch")
+    this.outageService.AdvancedSearch(this.advSearcOutege).subscribe((res) => {
+      console.log(res,"result for advanced");
+        this.outeges = res as Ioutage[];
+        this.dataSource = new MatTableDataSource<any>(this.outeges);
+        this.dataSource.paginator = this.paginator as MatPaginator;
+        this.dataSource.sort = this.sort as MatSort;
+        setTimeout(() => {
+        //  this.loader.idle();
+        }, 2000)
+      });
 
   }
   clearAdvancedSearch() {
-    // this.form.reset();
+     this.form.reset();
+     this.getRequestdata(1, 100, '', this.sortColumnDef, this.SortDirDef);
 
   }
 
@@ -188,5 +235,16 @@ export class OutageComponent implements OnInit {
           error => { this.toastr.error(' An Error Occured') }
       }
     })
+  }
+  getformLists() {
+    this.outageService.getListsForCreate().subscribe(res => {
+       this.governorateList = res.governorate ;
+       this.centralList = res.central;
+       this.problemPlaceList = res.problemLocation;
+       this.problemTypeList = res.problemType;
+       this.statuesList=res._status;
+    });
+   
+   
   }
 }
