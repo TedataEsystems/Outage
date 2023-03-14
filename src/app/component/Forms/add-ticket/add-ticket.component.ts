@@ -106,12 +106,6 @@ export class AddTicketComponent implements OnInit {
        this.centralList = res.central;
        this.problemPlaceList = res.problemLocation;
        this.problemTypeList = res.problemType;
-       this.service.form.patchValue({
-        Governorate: this.governorateList[0].id.toString(),
-        central: this.centralList[0].id.toString(),
-        problemType: this.problemPlaceList[0].id.toString(),
-        problemPlace: this.problemTypeList[0].id.toString()
-      })
     });
    
    
