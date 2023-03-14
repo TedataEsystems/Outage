@@ -10,6 +10,8 @@ import { OutageFormService } from 'src/app/shared/service/outage-form.service';
   styleUrls: ['./edit-ticket.component.css']
 })
 export class EditTicketComponent implements OnInit {
+  telecomEgyptMail : any
+  loading = false;
   outageModel: Ioutage = <Ioutage>{};
   governorateList: any[] = [];
   centralList: any[] = [];
@@ -39,7 +41,10 @@ export class EditTicketComponent implements OnInit {
     });
 
     this.service.getOutageById(this.id).subscribe(res => {
+      debugger
       this.outageModel = res.data;
+      console.log(this.dataURItoBlob(this.outageModel.telecomEgyptMail))
+     // this.service.form['controls']['attachFile'].setValue(this.fileName);
       this.service.form.patchValue({
         clientName: this.outageModel.customerName,
         frameName: this.outageModel.frameName,
@@ -57,7 +62,6 @@ export class EditTicketComponent implements OnInit {
         statusId: this.outageModel.statusId.toString(),
       })
     });
-
   }
 
   ngOnInit(): void {
@@ -74,10 +78,39 @@ export class EditTicketComponent implements OnInit {
     this.dialogRef.close('save');
   }
   onSubmit() {
-    if (!this.service.form.valid) {
-      return;
+    
+    if (this.service.form.valid) {
+      this.outageModel.customerName = this.service.form.value.clientName;
+      this.outageModel.frameName = this.service.form.value.frameName;
+      this.outageModel.circleNumber = this.service.form.value.circutNo;
+      this.outageModel.port = this.service.form.value.port;
+      this.outageModel.custommerAddress = this.service.form.value.clientAddress;
+      this.outageModel.customerNumber = this.service.form.value.clientNum;
+      this.outageModel.powerConfirmation = this.service.form.value.power;
+      this.outageModel.ticketNumber = this.service.form.value.TicketNum;
+      this.outageModel.telecomEgyptMail = this.telecomEgyptMail;
+      this.outageModel.governorateId = Number(this.service.form.value.Governorate);
+      this.outageModel.centralId = Number(this.service.form.value.central);
+      this.outageModel.problemTypeId = Number(this.service.form.value.problemType);
+      this.outageModel.problemLocationId = Number(this.service.form.value.problemPlace);
+
+      this.service.updateOutage(this.outageModel).subscribe(res => {
+        this.onClose();
+        setTimeout(() => {
+          this.loading = false;
+        }, 0)
+
+        this.toastr.success(':: Update Successfully');
+      }, error => {
+        setTimeout(() => {
+          this.loading = false;
+        }, 0)
+
+        this.toastr.warning(':: An Error Occured')
+      }
+      );
     } //end of if
-    this.toastr.success(' Successfully Added')
+  this.toastr.success(' Successfully Added')
 
   }
 
@@ -93,10 +126,14 @@ export class EditTicketComponent implements OnInit {
     var extensitin = this.fileName.split(".")[1];
 
     if (extensitin.toLowerCase() == "msg" || extensitin.toLowerCase() == "jpeg" || extensitin.toLowerCase() == "jpg" || extensitin.toLowerCase() == "png") {
-      this.service.form['controls']['attachFile'].setValue(this.fileName);
+     
+      this.convertFileToBase64Logo(this.file).then(data => {
+        this.telecomEgyptMail = data
+        this.service.form['controls']['attachFile'].setValue( this.fileName )})
     }
     else {
       this.fileName = "";
+      this.telecomEgyptMail=''
       this.toastr.warning("::Not Acceptable Extension only acceptable extenstion(jpeg,jpg,png,msg)");
     }
 
@@ -109,5 +146,31 @@ export class EditTicketComponent implements OnInit {
 
 
   }
+
+  //#region upload attach file 
+
+convertFileToBase64Logo(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve((<string>reader.result).split(',')[1]);
+    reader.onerror = (error) => reject(error);
+  });
+}
+
+dataURItoBlob(dataURI) {
+  debugger
+  const byteString = window.atob(dataURI);
+  const arrayBuffer = new ArrayBuffer(byteString.length);
+  const int8Array = new Uint8Array(arrayBuffer);
+  for (let i = 0; i < byteString.length; i++) {
+    int8Array[i] = byteString.charCodeAt(i);
+  }
+  const blob = new Blob([int8Array], { type: 'image/png' });    
+  return blob;
+}
+
+
+//#endregion
 
 }

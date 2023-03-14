@@ -7,6 +7,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Logs } from 'src/app/model/logs';
+import { LogsService } from 'src/app/shared/service/logs.service';
 
 @Component({
   selector: 'app-logs',
@@ -23,7 +24,7 @@ import { Logs } from 'src/app/model/logs';
 export class LogsComponent implements OnInit {
 
   searchKey:string ='' ;
-  constructor(private title:Title,private route: ActivatedRoute,private _router:Router,private toastr:ToastrService){
+  constructor(private logService : LogsService ,  private title:Title,private route: ActivatedRoute,private _router:Router,private toastr:ToastrService){
 
     this.title.setTitle("History")
 
@@ -39,6 +40,20 @@ export class LogsComponent implements OnInit {
   loader: boolean = false;
 
   ngOnInit(){
+    this.getRequestdata(1, 100, '', this.sortColumnDef, this.SortDirDef);
+  }
+  getRequestdata(pageNum: number, pageSize: number, search: string, sortColumn: string, sortDir: string) {
+    this.loader = true;
+    this.logService.getLogs(pageNum, pageSize, search, sortColumn, sortDir).subscribe(response => {
+      this.logsList = response?.data;
+      debugger
+      console.log(this.logsList)
+      this.logsList.length = response?.pagination.totalCount;
+      this.dataSource = new MatTableDataSource<any>(this.logsList);
+      this.dataSource._updateChangeSubscription();
+      this.dataSource.paginator = this.paginator as MatPaginator;
+    })
+    setTimeout(() => this.loader = false, 2000);
 
   }
   ngAfterViewInit() {
