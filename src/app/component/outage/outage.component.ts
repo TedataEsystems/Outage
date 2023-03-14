@@ -110,8 +110,8 @@ export class OutageComponent implements OnInit {
   }
   // when add search value and key up
   applyFilter() {
-
     let searchData = this.searchKey.trim().toLowerCase();
+    this.getRequestdata(1,100, searchData, this.sortColumnDef, "asc");
 
   } //applyfilter
 

@@ -102,6 +102,7 @@ export class CentralComponent implements OnInit {
   cancelEdit() {
     this.editdisabled = false;
     this.isNameUpdatedRepeated = false;
+    this.getRequestdata(1, 100, '', this.sortColumnDef, this.SortDirDef);
   }
   OnEditSubmit(row: any) {
     let central = {
