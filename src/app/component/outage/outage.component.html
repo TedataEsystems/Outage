@@ -21,25 +21,18 @@
                <mat-form-field appearance="fill">
                 <mat-select formControlName="Governorate" placeholder=" المحافظة ">
                   <mat-option>-- اختر --</mat-option>
-                  <!--  <ng-container>
-                    <mat-option [value]="">
-                   {{item.name}}
-                </mat-option>
-                </ng-container>
-              -->
-
+                  <ng-container *ngFor="let element of governorateList">
+                    <mat-option value="{{element.id}}">{{element.name}}</mat-option>
+                  </ng-container>
                 </mat-select>
                 <mat-error>مطلوب</mat-error>
               </mat-form-field>
                <mat-form-field appearance="fill">
                 <mat-select formControlName="central" placeholder=" السنترال ">
                   <mat-option>-- اختر --</mat-option>
-                  <!--  <ng-container>
-                    <mat-option [value]="">
-                   {{item.name}}
-                </mat-option>
-                </ng-container>
-              -->
+                  <ng-container *ngFor="let element of centralList">
+                    <mat-option value="{{element.id}}">{{element.name}}</mat-option>
+                  </ng-container>
 
                 </mat-select>
                 <mat-error>مطلوب</mat-error>
@@ -52,26 +45,18 @@
                <mat-form-field appearance="fill">
                 <mat-select formControlName="problemType" placeholder="نوع المشكلة ">
                   <mat-option>-- اختر --</mat-option>
-                  <!--  <ng-container>
-                    <mat-option [value]="">
-                   {{item.name}}
-                </mat-option>
-                </ng-container>
-              -->
-
+                  <ng-container *ngFor="let element of problemTypeList">
+                    <mat-option value="{{element.id}}">{{element.name}}</mat-option>
+                  </ng-container>
                 </mat-select>
                 <mat-error>مطلوب</mat-error>
               </mat-form-field>
                <mat-form-field appearance="fill">
                 <mat-select formControlName="problemPlace" placeholder="تحديد مكان المشكلة ">
                   <mat-option>-- اختر --</mat-option>
-                  <!--  <ng-container>
-                    <mat-option [value]="">
-                   {{item.name}}
-                </mat-option>
-                </ng-container>
-              -->
-
+                  <ng-container *ngFor="let element of problemPlaceList">
+                    <mat-option value="{{element.id}}">{{element.name}}</mat-option>
+                  </ng-container>
                 </mat-select>
                 <mat-error>مطلوب</mat-error>
               </mat-form-field>
@@ -103,7 +88,7 @@
                 <mat-error>مطلوب</mat-error>
               </mat-form-field>
                <mat-form-field appearance="fill">
-                <input formControlName="TicketNum" matInput placeholder="رقم التكت" />
+                <input formControlName="ticketNum" matInput placeholder="رقم التكت" />
                 <mat-error>مطلوب</mat-error>
               </mat-form-field>
             </div>
@@ -116,8 +101,10 @@
 
               <mat-form-field appearance="fill"  class="serch w-100">
                 <mat-select formControlName="statusId"  placeholder=" *الحاله (--اختر--) ">
-                  <mat-option>-- Please select --</mat-option>
-
+                   <mat-option>-- اختر --</mat-option>
+                  <ng-container *ngFor="let element of statuesList">
+                    <mat-option value="{{element.id}}">{{element.name}}</mat-option>
+                  </ng-container>
                 </mat-select>
               </mat-form-field>
 

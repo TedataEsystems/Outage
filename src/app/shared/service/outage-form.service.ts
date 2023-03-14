@@ -135,4 +135,8 @@ export class OutageFormService {
     debugger
     return this.http.get(`${this.baseUrl}/DownloadFile/` + id);
   }
+ AdvancedSearch(searchModel:any):Observable<any>{
+  return this.http.post<any>(`${this.baseUrl}/AdvancedSearch`, searchModel); 
+ }
+
 }
