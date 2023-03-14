@@ -48,6 +48,7 @@ export class OutageComponent implements OnInit {
     'updateDate',
     'createdBy',
     'updatedBy',
+    'exporAttach',
     'action',
   ];
   columnsToDisplay: string[] = this.displayedColumns.slice();
@@ -188,5 +189,19 @@ export class OutageComponent implements OnInit {
           error => { this.toastr.error(' An Error Occured') }
       }
     })
+  }
+
+  exportAttach(row: any) {
+    
+    this.outageService.DownloadAttach(row.id).subscribe(res => {
+      const linkSource =
+        'data:' + res.type + ';base64,' + res.data;
+      const downloadLink = document.createElement('a');
+      const fileName = res.name;
+      downloadLink.href = linkSource;
+      downloadLink.download = fileName;
+      downloadLink.click();
+
+    });
   }
 }

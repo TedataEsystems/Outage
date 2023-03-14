@@ -131,5 +131,8 @@ export class OutageFormService {
    return this.http.get(`${this.baseUrl}/DownloadEmptyExcel`,{responseType: 'blob',headers: this.headers});
 
  }
-
+  DownloadAttach(id: number): Observable<any> {
+    debugger
+    return this.http.get(`${this.baseUrl}/DownloadFile/` + id);
+  }
 }
