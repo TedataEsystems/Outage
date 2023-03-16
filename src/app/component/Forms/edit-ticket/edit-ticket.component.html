@@ -45,6 +45,7 @@
       <mat-form-field>
         <mat-select formControlName="central" placeholder=" السنترال ">
           <mat-option>-- اختر --</mat-option>
+          <input type="text" autocomplete="off"  class="w-100"  placeholder="Search by name..." #centralSearch (input)="onCentralInputChange()" >
           <ng-container *ngFor="let element of centralList">
             <mat-option value="{{element.id}}">{{element.name}}</mat-option>
           </ng-container>

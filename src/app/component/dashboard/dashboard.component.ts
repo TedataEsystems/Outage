@@ -40,6 +40,7 @@ export class DashboardComponent implements OnInit {
       this.count = this.chartData.totalCount;
       this.doughnutChartLabels = this.chartData.statusNameList;
       this.doughnutChartData = [this.chartData.statusNameCountList];
+     
       this.statusCount = this.chartData.statusNameCountList;
       this.barChartData = []
 
@@ -63,6 +64,13 @@ export class DashboardComponent implements OnInit {
   }
 
   /////////////////donut chart//////////////////
+  doughnutChartOptions:ChartOptions = {
+    responsive: true,
+    legend: {
+      position: 'left'
+   }
+
+  };
   doughnutChartLabels: Label[] = [];
   doughnutChartData: MultiDataSet = [
     []
@@ -72,14 +80,19 @@ export class DashboardComponent implements OnInit {
   colors: Color[] = [
     {
       backgroundColor: [
-        '#8e2279',
-        '#80868b',
-        '#d7d7d7',
         "#0f1323",
         "#1b3c51",
+        '#2d6487 ',
+        '#427697',
+        '#6d7277 ',
+        '#80868b',
         "#791a75",
-
-        'blue', 'red', 'pink', 'orange', 'purple', 'brown', 'DeepPink', 'DarkOrange'
+        '#8e2279',
+       '#c131a5',
+       "#dc58c2",
+      
+       
+        '#d7d7d7', 'red', 'pink', 'orange', 'purple', 'brown', 'DarkOrange'
       ]
     }
   ];

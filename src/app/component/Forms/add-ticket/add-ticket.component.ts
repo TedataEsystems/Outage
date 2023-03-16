@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Ioutage } from 'src/app/model/Ioutage';
@@ -13,6 +13,7 @@ export class AddTicketComponent implements OnInit {
   outage: Ioutage = <Ioutage>{};
   governorateList: any[] = [];
   centralList: any[] = [];
+  _centralList: any[] = [];
   problemPlaceList: any[] = [];
   problemTypeList: any[] = [];
   telecomEgyptMail: any
@@ -103,12 +104,23 @@ export class AddTicketComponent implements OnInit {
     this.service.getListsForCreate().subscribe(res => {
       this.governorateList = res.governorate;
       this.centralList = res.central;
+      this._centralList = res.central;
       this.problemPlaceList = res.problemLocation;
       this.problemTypeList = res.problemType;
     });
 
 
   }
+  @ViewChild('centralSearch') centralSearch!: ElementRef;
+  onCentralInputChange(){
+    const searchInput = this.centralSearch.nativeElement.value ?
+    this.centralSearch.nativeElement.value.toLowerCase() : '' ;
+    this.centralList = this._centralList.filter(u=> {
+      const name : string= u.name.toLowerCase();
+      return name.indexOf(searchInput) > -1 ;
+    });
+  }
+
   //#region upload attach file 
 
   convertFileToBase64Logo(file) {

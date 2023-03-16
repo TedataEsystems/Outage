@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Ioutage } from 'src/app/model/Ioutage';
@@ -14,6 +14,7 @@ export class EditTicketComponent implements OnInit {
   outageModel: Ioutage = <Ioutage>{};
   governorateList: any[] = [];
   centralList: any[] = [];
+  _centralList: any[] = [];
   problemPlaceList: any[] = [];
   statusList: any[] = [];
   problemTypeList: any[] = [];
@@ -31,6 +32,7 @@ export class EditTicketComponent implements OnInit {
       debugger
       this.governorateList = res.governorate;
       this.centralList = res.central;
+      this._centralList = res.central;
       this.problemPlaceList = res.problemLocation;
       this.problemTypeList = res.problemType;
       this.statusList = res._status
@@ -124,7 +126,15 @@ export class EditTicketComponent implements OnInit {
 
 
 
-
+  @ViewChild('centralSearch') centralSearch!: ElementRef;
+  onCentralInputChange(){
+    const searchInput = this.centralSearch.nativeElement.value ?
+    this.centralSearch.nativeElement.value.toLowerCase() : '' ;
+    this.centralList = this._centralList.filter(u=> {
+      const name : string= u.name.toLowerCase();
+      return name.indexOf(searchInput) > -1 ;
+    });
+  }
 
 
   handleFileInputChange(event) {
