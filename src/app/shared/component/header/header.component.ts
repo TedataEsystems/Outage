@@ -11,11 +11,14 @@ import screenfull from 'screenfull';
 export class HeaderComponent implements OnInit {
   @Output() public sidenavToggle = new EventEmitter();
   ShowStatus=false;
+  ShowSetting=false;
   constructor(private router: Router) { }
   userName:string;
   ngOnInit(): void {
-
-   
+    if(localStorage.getItem("userGroup") != "Outage_Creator")
+    {
+     this.ShowSetting=true;
+    }
 
   }
 

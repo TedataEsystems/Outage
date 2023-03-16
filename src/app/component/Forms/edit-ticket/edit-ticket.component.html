@@ -106,7 +106,16 @@
       </mat-form-field>
 
 
+      <mat-form-field>
+        <mat-select formControlName="statusId" placeholder="الحالة ">
+          <mat-option>-- اختر --</mat-option>
+          <ng-container *ngFor="let element of statusList">
+            <mat-option value="{{element.id}}">{{element.name}}</mat-option>
+          </ng-container>
 
+        </mat-select>
+        <mat-error>مطلوب</mat-error>
+      </mat-form-field>
 
       <mat-form-field>
         <mat-label>اضافة ميل المصرية</mat-label>

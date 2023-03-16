@@ -15,6 +15,7 @@ export class EditTicketComponent implements OnInit {
   governorateList: any[] = [];
   centralList: any[] = [];
   problemPlaceList: any[] = [];
+  statusList: any[] = [];
   problemTypeList: any[] = [];
   id: number = 0;
   file: File | null; // Variable to store file
@@ -27,15 +28,18 @@ export class EditTicketComponent implements OnInit {
 
   getformLists() {
     this.service.getListsForCreate().subscribe(res => {
+      debugger
       this.governorateList = res.governorate;
       this.centralList = res.central;
       this.problemPlaceList = res.problemLocation;
       this.problemTypeList = res.problemType;
+      this.statusList = res._status
       this.service.form.patchValue({
         Governorate: this.governorateList[0].id.toString(),
         central: this.centralList[0].id.toString(),
         problemType: this.problemPlaceList[0].id.toString(),
-        problemPlace: this.problemTypeList[0].id.toString()
+        problemPlace: this.problemTypeList[0].id.toString(),
+        status : this.statusList[0].id.toString()
       })
     });
 
@@ -61,7 +65,6 @@ export class EditTicketComponent implements OnInit {
         clientNum: this.outageModel.customerNumber,
         power: this.outageModel.powerConfirmation,
         TicketNum: this.outageModel.ticketNumber,
-        attachFile: this.outageModel.telecomEgyptMail,
         statusId: this.outageModel.statusId.toString(),
       })
     });
@@ -95,9 +98,9 @@ export class EditTicketComponent implements OnInit {
       this.outageModel.centralId = Number(this.service.form.value.central);
       this.outageModel.problemTypeId = Number(this.service.form.value.problemType);
       this.outageModel.problemLocationId = Number(this.service.form.value.problemPlace);
+      this.outageModel.statusId = Number(this.service.form.value.statusId);
 
       this.service.updateOutage(this.outageModel).subscribe(res => {
-        debugger
         this.onClose();
         if (res.status == true) {
           if (this.file != null) {

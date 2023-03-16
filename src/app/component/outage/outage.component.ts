@@ -19,6 +19,7 @@ import { EditTicketComponent } from '../Forms/edit-ticket/edit-ticket.component'
   styleUrls: ['./outage.component.css']
 })
 export class OutageComponent implements OnInit {
+  userRole = ''
   outageList: any[] = [];
   sortColumnDef: string = "Id";
   SortDirDef: string = 'asc';
@@ -103,6 +104,7 @@ export class OutageComponent implements OnInit {
 
   getRequestdata(pageNum: number, pageSize: number, search: string, sortColumn: string, sortDir: string) {
     this.loader = true;
+    this.userRole = localStorage.getItem("userGroup");
     this.outageService.getOutages(pageNum, pageSize, search, sortColumn, sortDir).subscribe(response => {
       this.outageList = response?.data;
       this.outageList.length = response?.pagination.totalCount;
@@ -121,7 +123,7 @@ export class OutageComponent implements OnInit {
   // when add search value and key up
   applyFilter() {
     let searchData = this.searchKey.trim().toLowerCase();
-    this.getRequestdata(1,100, searchData, this.sortColumnDef, "asc");
+    this.getRequestdata(1, 100, searchData, this.sortColumnDef, "asc");
 
   } //applyfilter
 
@@ -131,11 +133,11 @@ export class OutageComponent implements OnInit {
   }
 
   AdvancedSearchSubmit() {
-    this.advSearcOutege.createdDateFrom =this.form.value.createdDateFrom == '' ? null: this.form.value.createdDateFrom;
-    this.advSearcOutege.createdDateTo =this.form.value.createdDateTo == '' ? null: this.form.value.createdDateTo;
+    this.advSearcOutege.createdDateFrom = this.form.value.createdDateFrom == '' ? null : this.form.value.createdDateFrom;
+    this.advSearcOutege.createdDateTo = this.form.value.createdDateTo == '' ? null : this.form.value.createdDateTo;
     //
-    this.advSearcOutege.updatedDateFrom =this.form.value.updatedDateFrom == '' ? null : this.form.value.updatedDateFrom;
-    this.advSearcOutege.updatedDateTo = this.form.value.updatedDateTo == ''? null : this.form.value.updatedDateTo;
+    this.advSearcOutege.updatedDateFrom = this.form.value.updatedDateFrom == '' ? null : this.form.value.updatedDateFrom;
+    this.advSearcOutege.updatedDateTo = this.form.value.updatedDateTo == '' ? null : this.form.value.updatedDateTo;
     //
     this.advSearcOutege.createdBy = this.form.value.createdBy;
     this.advSearcOutege.updatedBy = this.form.value.updatedBy;
@@ -145,10 +147,10 @@ export class OutageComponent implements OnInit {
     this.advSearcOutege.statusId = this.form.value.statusId;
     this.advSearcOutege.customerName = this.form.value.clientName;
     this.advSearcOutege.frameName = this.form.value.frameName;
-    this.advSearcOutege.governorateId =this.form.value.governorateId;
-    this.advSearcOutege.centralId =this.form.value.centralId;
+    this.advSearcOutege.governorateId = this.form.value.governorateId;
+    this.advSearcOutege.centralId = this.form.value.centralId;
     this.advSearcOutege.problemTypeId = this.form.value.problemTypeId;
-    this.advSearcOutege.problemLocationId =this.form.value.problemLocationId;
+    this.advSearcOutege.problemLocationId = this.form.value.problemLocationId;
     this.advSearcOutege.circleNumber = this.form.value.circutNo;
 
     this.advSearcOutege.port = this.form.value.port;
@@ -157,22 +159,22 @@ export class OutageComponent implements OnInit {
     this.advSearcOutege.powerConfirmation = this.form.value.power;
     this.advSearcOutege.ticketNumber = this.form.value.ticketNum;
     //this.advSearcOutege.jobDegreeId = this.form.value.jobDegreeId;
-console.log(this.advSearcOutege,"advSearch")
+    console.log(this.advSearcOutege, "advSearch")
     this.outageService.AdvancedSearch(this.advSearcOutege).subscribe((res) => {
-      console.log(res,"result for advanced");
-        this.outeges = res as Ioutage[];
-        this.dataSource = new MatTableDataSource<any>(this.outeges);
-        this.dataSource.paginator = this.paginator as MatPaginator;
-        this.dataSource.sort = this.sort as MatSort;
-        setTimeout(() => {
+      console.log(res, "result for advanced");
+      this.outeges = res as Ioutage[];
+      this.dataSource = new MatTableDataSource<any>(this.outeges);
+      this.dataSource.paginator = this.paginator as MatPaginator;
+      this.dataSource.sort = this.sort as MatSort;
+      setTimeout(() => {
         //  this.loader.idle();
-        }, 2000)
-      });
+      }, 2000)
+    });
 
   }
   clearAdvancedSearch() {
-     this.form.reset();
-     this.getRequestdata(1, 100, '', this.sortColumnDef, this.SortDirDef);
+    this.form.reset();
+    this.getRequestdata(1, 100, '', this.sortColumnDef, this.SortDirDef);
 
   }
 
@@ -239,7 +241,7 @@ console.log(this.advSearcOutege,"advSearch")
   }
 
   exportAttach(row: any) {
-    
+
     this.outageService.DownloadAttach(row.id).subscribe(res => {
       const linkSource =
         'data:' + res.type + ';base64,' + res.data;
@@ -254,13 +256,13 @@ console.log(this.advSearcOutege,"advSearch")
 
   getformLists() {
     this.outageService.getListsForCreate().subscribe(res => {
-       this.governorateList = res.governorate ;
-       this.centralList = res.central;
-       this.problemPlaceList = res.problemLocation;
-       this.problemTypeList = res.problemType;
-       this.statuesList=res._status;
+      this.governorateList = res.governorate;
+      this.centralList = res.central;
+      this.problemPlaceList = res.problemLocation;
+      this.problemTypeList = res.problemType;
+      this.statuesList = res._status;
     });
-   
-   
+
+
   }
 }

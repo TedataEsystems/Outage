@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
       if (res.status) {
         localStorage.setItem("tokenNumber", res.token);
         localStorage.setItem("userName", res.userName);
+        localStorage.setItem("userGroup",res.userGroup);
         this.router.navigate(["/outage"]);
       }
       else {

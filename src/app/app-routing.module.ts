@@ -15,68 +15,68 @@ import { CentralComponent } from './component/settings/central/central.component
 
 const routes: Routes = [
   {
-    path:'',
-  component:LoginComponent,
- },
+    path: '',
+    component: LoginComponent,
+  },
   {
-    path:'login',
-  component:LoginComponent,
- },
+    path: 'login',
+    component: LoginComponent,
+  },
 
   {
-    path:'outage',
+    path: 'outage',
     component: LayoutComponent,
     children: [
       {
-      path:'',
-      component: DashboardComponent,
-      //canActivate:[AuthGuardGuard]
+        path: '',
+        component: DashboardComponent,
+        //canActivate: [AuthGuardGuard]
 
-    },
-    {
-      path:'outages',
-      component:OutageComponent
- //canActivate:[AuthGuardGuard]
+      },
+      {
+        path: 'outages',
+        component: OutageComponent,
+        canActivate: [AuthGuardGuard]
 
 
-    },
-{
-  path:'problemPlace',
-  component:ProblemPlaceComponent,
-  // canActivate:[AuthGuardGuard]
-},
-{
-  path:'problemType',
-  component:ProblemTypeComponent,
-  // canActivate:[AuthGuardGuard]
-},
-    {
-      path:'status',
-      component: ApproveStatusComponent,
-     // canActivate:[AuthGuardGuard]
-    },
-    {
-      path:'governorate',
-      component: GovernorateComponent,
-     // canActivate:[AuthGuardGuard]
-    },
-    {
-      path:'central',
-      component: CentralComponent,
-     // canActivate:[AuthGuardGuard]
-    },
-    {
-      path:'history',
-      component: LogsComponent,
-     // canActivate:[AuthGuardGuard]
+      },
+      {
+        path: 'problemPlace',
+        component: ProblemPlaceComponent,
+        canActivate: [AuthGuardGuard]
+      },
+      {
+        path: 'problemType',
+        component: ProblemTypeComponent,
+        canActivate: [AuthGuardGuard]
+      },
+      {
+        path: 'status',
+        component: ApproveStatusComponent,
+        canActivate: [AuthGuardGuard]
+      },
+      {
+        path: 'governorate',
+        component: GovernorateComponent,
+        canActivate: [AuthGuardGuard]
+      },
+      {
+        path: 'central',
+        component: CentralComponent,
+        canActivate: [AuthGuardGuard]
+      },
+      {
+        path: 'history',
+        component: LogsComponent,
+        canActivate: [AuthGuardGuard]
 
-    }
-    ,
-    {
-      path:'**',
-     pathMatch: 'full',
-    component:ErrorPageComponent,
-    }
+      }
+      ,
+      {
+        path: '**',
+        pathMatch: 'full',
+        component: ErrorPageComponent,
+      }
 
 
 
@@ -85,9 +85,9 @@ const routes: Routes = [
 
   },
   {
-    path:'**',
-   pathMatch: 'full',
-  component:ErrorPageComponent,
+    path: '**',
+    pathMatch: 'full',
+    component: ErrorPageComponent,
   }
 
 

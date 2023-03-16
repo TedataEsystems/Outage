@@ -10,15 +10,15 @@
           <mat-grid-tile>
             <div class="controles-container">
 
-               <mat-form-field appearance="fill">
+              <mat-form-field appearance="fill">
                 <input formControlName="clientName" matInput placeholder="اسم العميل" />
                 <mat-error>مطلوب</mat-error>
               </mat-form-field>
-               <mat-form-field appearance="fill">
+              <mat-form-field appearance="fill">
                 <input formControlName="frameName" matInput placeholder="اسم الفريم" />
                 <mat-error>مطلوب</mat-error>
               </mat-form-field>
-               <mat-form-field appearance="fill">
+              <mat-form-field appearance="fill">
                 <mat-select formControlName="Governorate" placeholder=" المحافظة ">
                   <mat-option>-- اختر --</mat-option>
                   <ng-container *ngFor="let element of governorateList">
@@ -27,7 +27,7 @@
                 </mat-select>
                 <mat-error>مطلوب</mat-error>
               </mat-form-field>
-               <mat-form-field appearance="fill">
+              <mat-form-field appearance="fill">
                 <mat-select formControlName="central" placeholder=" السنترال ">
                   <mat-option>-- اختر --</mat-option>
                   <ng-container *ngFor="let element of centralList">
@@ -42,7 +42,7 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="controles-container">
-               <mat-form-field appearance="fill">
+              <mat-form-field appearance="fill">
                 <mat-select formControlName="problemType" placeholder="نوع المشكلة ">
                   <mat-option>-- اختر --</mat-option>
                   <ng-container *ngFor="let element of problemTypeList">
@@ -51,7 +51,7 @@
                 </mat-select>
                 <mat-error>مطلوب</mat-error>
               </mat-form-field>
-               <mat-form-field appearance="fill">
+              <mat-form-field appearance="fill">
                 <mat-select formControlName="problemPlace" placeholder="تحديد مكان المشكلة ">
                   <mat-option>-- اختر --</mat-option>
                   <ng-container *ngFor="let element of problemPlaceList">
@@ -60,8 +60,8 @@
                 </mat-select>
                 <mat-error>مطلوب</mat-error>
               </mat-form-field>
-               <mat-form-field appearance="fill">
-                <input type="number"  min="0" formControlName="circutNo" matInput placeholder="رقم الدائرة" />
+              <mat-form-field appearance="fill">
+                <input type="number" min="0" formControlName="circutNo" matInput placeholder="رقم الدائرة" />
                 <mat-error>مطلوب</mat-error>
               </mat-form-field>
               <mat-form-field appearance="fill">
@@ -74,12 +74,12 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="controles-container">
-              
-               <mat-form-field appearance="fill">
+
+              <mat-form-field appearance="fill">
                 <input formControlName="clientAddress" matInput placeholder="عنوان العميل" />
                 <mat-error>مطلوب</mat-error>
               </mat-form-field>
-               <mat-form-field appearance="fill">
+              <mat-form-field appearance="fill">
                 <input formControlName="clientNum" matInput placeholder="رقم العميل" />
                 <mat-error>مطلوب</mat-error>
               </mat-form-field>
@@ -87,7 +87,7 @@
                 <input formControlName="power" matInput placeholder="تاكيد الباور" />
                 <mat-error>مطلوب</mat-error>
               </mat-form-field>
-               <mat-form-field appearance="fill">
+              <mat-form-field appearance="fill">
                 <input formControlName="ticketNum" matInput placeholder="رقم التكت" />
                 <mat-error>مطلوب</mat-error>
               </mat-form-field>
@@ -96,12 +96,12 @@
           <mat-grid-tile>
             <div class="controles-container">
 
-              
 
 
-              <mat-form-field appearance="fill"  class="serch w-100">
-                <mat-select formControlName="statusId"  placeholder=" *الحاله (--اختر--) ">
-                   <mat-option>-- اختر --</mat-option>
+
+              <mat-form-field appearance="fill" class="serch w-100">
+                <mat-select formControlName="statusId" placeholder=" *الحاله (--اختر--) ">
+                  <mat-option>-- اختر --</mat-option>
                   <ng-container *ngFor="let element of statuesList">
                     <mat-option value="{{element.id}}">{{element.name}}</mat-option>
                   </ng-container>
@@ -109,29 +109,30 @@
               </mat-form-field>
 
 
-              <div class="w-100 d-flex" >
-              <mat-form-field appearance="fill" class="serch w-50">
-                <mat-label>اسم المنشأ</mat-label>
-                <input matInput formControlName="createdBy" />
-              </mat-form-field>
+              <div class="w-100 d-flex">
+                <mat-form-field appearance="fill" class="serch w-50">
+                  <mat-label>اسم المنشأ</mat-label>
+                  <input matInput formControlName="createdBy" />
+                </mat-form-field>
 
-              <mat-form-field appearance="fill" class="w-50  serch" style="border-right:5px solid #fff">
-                <mat-label>اسم المعدل</mat-label>
-                <input matInput formControlName="updatedBy" />
-              </mat-form-field>
+                <mat-form-field appearance="fill" class="w-50  serch" style="border-right:5px solid #fff">
+                  <mat-label>اسم المعدل</mat-label>
+                  <input matInput formControlName="updatedBy" />
+                </mat-form-field>
               </div>
 
-            <div class="w-100 d-flex" >
+              <div class="w-100 d-flex">
 
-              <mat-form-field appearance="fill" class="w-50 serch">
-                <mat-label>تاريخ الانشاء</mat-label>
+                <mat-form-field appearance="fill" class="w-50 serch">
+                  <mat-label>تاريخ الانشاء</mat-label>
                   <input formControlName="createdDateFrom" matInput [matDatepicker]="createdDateFrom" placeholder="من ">
                   <mat-datepicker-toggle matSuffix [for]="createdDateFrom"></mat-datepicker-toggle>
                   <mat-datepicker #createdDateFrom></mat-datepicker>
                 </mat-form-field>
 
-              <mat-form-field appearance="fill" class="w-50  serch" style="border-right:5px solid #fff">
-                  <input formControlName="createdDateTo" matInput [matDatepicker]="createdDateTo" placeholder="الى" [min]="form.controls.createdDateFrom?.value">
+                <mat-form-field appearance="fill" class="w-50  serch" style="border-right:5px solid #fff">
+                  <input formControlName="createdDateTo" matInput [matDatepicker]="createdDateTo" placeholder="الى"
+                    [min]="form.controls.createdDateFrom?.value">
                   <mat-datepicker-toggle matSuffix [for]="createdDateTo"></mat-datepicker-toggle>
                   <mat-datepicker #createdDateTo></mat-datepicker>
                 </mat-form-field>
@@ -140,30 +141,26 @@
               <div class="w-100 d-flex">
                 <mat-form-field appearance="fill" class="w-50 serch">
                   <mat-label>تاريخ التعديل</mat-label>
-                    <input formControlName="updatedDateFrom" matInput [matDatepicker]="updatedDateFrom" placeholder="من">
-                    <mat-datepicker-toggle matSuffix [for]="updatedDateFrom"></mat-datepicker-toggle>
-                    <mat-datepicker #updatedDateFrom></mat-datepicker>
-                  </mat-form-field>
-                <mat-form-field appearance="fill" class="w-50 serch"  style="border-right:5px solid #fff">
-                    <input formControlName="updatedDateTo" matInput [matDatepicker]="updatedDateTo" placeholder="الى" [min]="form.controls.updatedDateFrom?.value">
-                    <mat-datepicker-toggle matSuffix [for]="updatedDateTo"></mat-datepicker-toggle>
-                    <mat-datepicker #updatedDateTo></mat-datepicker>
-                  </mat-form-field>
-                </div>
+                  <input formControlName="updatedDateFrom" matInput [matDatepicker]="updatedDateFrom" placeholder="من">
+                  <mat-datepicker-toggle matSuffix [for]="updatedDateFrom"></mat-datepicker-toggle>
+                  <mat-datepicker #updatedDateFrom></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="w-50 serch" style="border-right:5px solid #fff">
+                  <input formControlName="updatedDateTo" matInput [matDatepicker]="updatedDateTo" placeholder="الى"
+                    [min]="form.controls.updatedDateFrom?.value">
+                  <mat-datepicker-toggle matSuffix [for]="updatedDateTo"></mat-datepicker-toggle>
+                  <mat-datepicker #updatedDateTo></mat-datepicker>
+                </mat-form-field>
+              </div>
 
-                </div>
+            </div>
 
 
           </mat-grid-tile>
         </mat-grid-list>
         <div class="w-100 d-flex justify-content-end btn-group">
-          <input
-            mat-raised-button
-            value="مسح "
-            class="btn-danger text-center mx-1 ser"
-            (click)="clearAdvancedSearch()"
-            readonly
-          />
+          <input mat-raised-button value="مسح " class="btn-danger text-center mx-1 ser" (click)="clearAdvancedSearch()"
+            readonly />
 
           <button mat-raised-button class="ser" color="warn">بحث</button>
         </div>
@@ -175,7 +172,7 @@
 <mat-card class="example-card">
   <mat-card-header>
     <mat-card-title> الانقطاعات </mat-card-title>
-    <button  mat-button class="opt" (click)="addTicket()">
+    <button mat-button class="opt" (click)="addTicket()">
       <mat-icon class="add-new ico">add</mat-icon>
       <span class="txt mr-1">اضافة طلب</span>
     </button>
@@ -186,51 +183,28 @@
 
   <div class="search-div" fxLayout="row">
     <mat-form-field class="search-form-field" floatLabel="never">
-      <input
-        matInput
-        [(ngModel)]="searchKey"
-        placeholder="بحث"
-        autocomplete="off"
-        (keyup)="applyFilter()"
-      />
-      <button
-        mat-button
-        matSuffix
-        mat-icon-button
-        aria-label="Clear"
-        *ngIf="searchKey"
-        (click)="onSearchClear()"
-      >
+      <input matInput [(ngModel)]="searchKey" placeholder="بحث" autocomplete="off" (keyup)="applyFilter()" />
+      <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
   </div>
 
   <div class="example-container mat-elevation-z8">
-    <mat-table
-      [dataSource]="dataSource"
-      #table
-      matSort
-      (matSortChange)="sortData($event)"
-      matSortActive="Name"
-      matSortDirection="asc"
-      matSortDisableClear
-    >
+    <mat-table [dataSource]="dataSource" #table matSort (matSortChange)="sortData($event)" matSortActive="Name"
+      matSortDirection="asc" matSortDisableClear>
 
 
       <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef mat-sort-header
-          >الرقم</mat-header-cell
-        >
-          <mat-cell *matCellDef="let element">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>الرقم</mat-header-cell>
+        <mat-cell *matCellDef="let element">
           {{ element.id }}
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="clientName">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
-          اسم العميل</mat-header-cell
-        >
+          اسم العميل</mat-header-cell>
         <mat-cell *matCellDef="let element">
           {{ element.customerName }}
         </mat-cell>
@@ -258,7 +232,7 @@
       </ng-container>
       <ng-container matColumnDef="central">
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
-           السنترال
+          السنترال
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
           <ng-container>
@@ -298,7 +272,7 @@
       </ng-container>
       <ng-container matColumnDef="port">
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
-           البورت
+          البورت
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
           <ng-container>
@@ -308,7 +282,7 @@
       </ng-container>
       <ng-container matColumnDef="clientAddress">
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
-           عنوان العميل
+          عنوان العميل
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
           <ng-container>
@@ -349,14 +323,14 @@
       </ng-container>
       <ng-container matColumnDef="status">
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
-          الحاله</mat-header-cell
-        >
-        <mat-cell *matCellDef="let element"  [ngClass]="{'red':element.status.name =='rejected','green' : element.status.name =='approved','ora' : element.status.name =='pending'}"> {{ element.status.name }} </mat-cell>
+          الحاله</mat-header-cell>
+        <mat-cell *matCellDef="let element"
+          [ngClass]="{'red':element.status.name =='rejected','green' : element.status.name =='approved','ora' : element.status.name =='pending'}">
+          {{ element.status.name }} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="creationDate">
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
-          تاريخ الانشاء</mat-header-cell
-        >
+          تاريخ الانشاء</mat-header-cell>
         <mat-cell *matCellDef="let element">
           {{ element.creationDate | date : "yyyy-MM-dd" }}
         </mat-cell>
@@ -364,8 +338,7 @@
 
       <ng-container matColumnDef="updateDate">
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
-          تاريخ التعديل</mat-header-cell
-        >
+          تاريخ التعديل</mat-header-cell>
         <mat-cell *matCellDef="let element">
           {{ element.updateDate | date : "yyyy-MM-dd" }}
         </mat-cell>
@@ -378,25 +351,22 @@
 
       <ng-container matColumnDef="createdBy">
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
-          الانشاء بواسطة</mat-header-cell
-        >
+          الانشاء بواسطة</mat-header-cell>
         <mat-cell *matCellDef="let element"> {{ element.createdBy }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="updatedBy">
-        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header
-          > التعديل بواسطة</mat-header-cell
-        >
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> التعديل بواسطة</mat-header-cell>
         <mat-cell *matCellDef="let element"> {{ element.updatedBy }} </mat-cell>
       </ng-container>
 
-      <ng-container  matColumnDef="exporAttach" >
-        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>  البريد المرفق</mat-header-cell>
-        <mat-cell  *matCellDef="let element,let row" >
+      <ng-container matColumnDef="exporAttach">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> البريد المرفق</mat-header-cell>
+        <mat-cell *matCellDef="let element,let row">
           <!-- <button mat-stroked-button class="mx-1" (click)="exportAttach(element.attachFileId)"> -->
-            <button mat-stroked-button class="mx-1" (click)="exportAttach(row)">
+          <button mat-stroked-button class="mx-1" (click)="exportAttach(row)">
             <mat-icon class="">download</mat-icon>
-            <span class="txt mr-1"> تنزيل  </span>
+            <span class="txt mr-1"> تنزيل </span>
           </button>
         </mat-cell>
       </ng-container>
@@ -406,24 +376,14 @@
         <mat-cell *matCellDef="let row" data-label="action">
           <ng-container>
 
-            <button
-              mat-button
-
-              class="btn-success mx-1 font-weight-bolder"
-              matTooltip="تعديل"
-              (click)="onEdit(row)"
-            >
+            <button mat-button [disabled]="userRole == 'Outage_Creator'" class="btn-success mx-1 font-weight-bolder"
+              matTooltip="تعديل" (click)="onEdit(row)">
               <mat-icon>edit</mat-icon>
             </button>
 
 
-            <button
-              mat-button
-              class="btn-danger"
-
-              matTooltip="حذف"
-              (click)="onDelete(row)"
-            >
+            <button mat-button class="btn-danger" [disabled]="userRole == 'Outage_Creator'" matTooltip="حذف"
+              (click)="onDelete(row)">
               <mat-icon>delete_forever</mat-icon>
             </button>
           </ng-container>
@@ -436,12 +396,9 @@
         </mat-footer-cell>
       </ng-container>
 
-      <mat-footer-row
-        *matFooterRowDef="['noData']"
-        [ngClass]="{
+      <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{
           hide: !(dataSource.data.length == 0 && dataSource != null)
-        }"
-      ></mat-footer-row>
+        }"></mat-footer-row>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
@@ -449,11 +406,6 @@
     <!-- end test -->
   </div>
   <!-- </ng-template> -->
-  <mat-paginator
-    [pageSizeOptions]="[10, 25, 50, 100]"
-    [pageSize]="10"
-
-    showFirstLastButtons
-  >
+  <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" [pageSize]="10" showFirstLastButtons>
   </mat-paginator>
 </mat-card>
