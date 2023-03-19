@@ -40,7 +40,7 @@ export class OutageFormService {
     updateDate: new FormControl(null),
     createdBy: new FormControl(null),
     updateBy: new FormControl(null),
-    statusId: new FormControl('', [Validators.required]),
+    statusId: new FormControl(''),
 
 
   });

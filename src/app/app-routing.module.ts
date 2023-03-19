@@ -36,7 +36,7 @@ const routes: Routes = [
       {
         path: 'outages',
         component: OutageComponent,
-        canActivate: [AuthGuardGuard]
+        //canActivate: [AuthGuardGuard]
 
 
       },

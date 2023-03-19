@@ -13,8 +13,11 @@ export class HeaderComponent implements OnInit {
   ShowStatus=false;
   ShowSetting=false;
   constructor(private router: Router) { }
-  userName:string;
+  userName:string = 'userName';
   ngOnInit(): void {
+    if(localStorage.getItem("userName") != ''){
+      this.userName = localStorage.getItem("userName");
+    }
     if(localStorage.getItem("userGroup") != "Outage_Creator")
     {
      this.ShowSetting=true;
