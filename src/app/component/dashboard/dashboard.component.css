@@ -124,7 +124,10 @@ mat-icon,.percentage{
   color: #c93a3a;
 }
 canvas{
-  height: 468px!important;
+ /* height: 468px!important;*/
+  height: 300px!important;
+    width: 700px !important;
+    margin-top: 20px;
 }
 /* canvas.creator{
   height: 258px!important;

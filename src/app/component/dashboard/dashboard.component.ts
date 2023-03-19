@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
       this.count = this.chartData.totalCount;
       this.doughnutChartLabels = this.chartData.statusNameList;
       this.doughnutChartData = [this.chartData.statusNameCountList];
-     
+
       this.statusCount = this.chartData.statusNameCountList;
       this.barChartData = []
 
@@ -89,9 +89,9 @@ export class DashboardComponent implements OnInit {
         "#791a75",
         '#8e2279',
        '#c131a5',
-       "#dc58c2",
-      
-       
+       "#d383c3",
+
+
         '#d7d7d7', 'red', 'pink', 'orange', 'purple', 'brown', 'DarkOrange'
       ]
     }
