@@ -12,7 +12,7 @@ import { DeleteService } from 'src/app/shared/service/delete.service';
 import { OutageFormService } from 'src/app/shared/service/outage-form.service';
 import { AddTicketComponent } from '../Forms/add-ticket/add-ticket.component';
 import { EditTicketComponent } from '../Forms/edit-ticket/edit-ticket.component';
-
+import { saveAs } from 'file-saver';
 @Component({
   selector: 'app-outage',
   templateUrl: './outage.component.html',
@@ -263,6 +263,48 @@ export class OutageComponent implements OnInit {
       this.statuesList = res._status;
     });
 
+
+  }
+
+
+
+
+
+
+
+  ExportTOExcel() {
+    this.advSearcOutege.createdDateFrom = this.form.value.createdDateFrom == '' ? null : this.form.value.createdDateFrom;
+    this.advSearcOutege.createdDateTo = this.form.value.createdDateTo == '' ? null : this.form.value.createdDateTo;
+    this.advSearcOutege.updatedDateFrom = this.form.value.updatedDateFrom == '' ? null : this.form.value.updatedDateFrom;
+    this.advSearcOutege.updatedDateTo = this.form.value.updatedDateTo == '' ? null : this.form.value.updatedDateTo;
+    this.advSearcOutege.createdBy = this.form.value.createdBy;
+    this.advSearcOutege.updatedBy = this.form.value.updatedBy;
+    this.advSearcOutege.id = Number(this.form.value.id);
+    this.advSearcOutege.statusId = this.form.value.statusId;
+    this.advSearcOutege.customerName = this.form.value.clientName;
+    this.advSearcOutege.frameName = this.form.value.frameName;
+    this.advSearcOutege.governorateId = this.form.value.governorateId;
+    this.advSearcOutege.centralId = this.form.value.centralId;
+    this.advSearcOutege.problemTypeId = this.form.value.problemTypeId;
+    this.advSearcOutege.problemLocationId = this.form.value.problemLocationId;
+    this.advSearcOutege.circleNumber = this.form.value.circutNo;
+    this.advSearcOutege.port = this.form.value.port;
+    this.advSearcOutege.custommerAddress = this.form.value.clientAddress;
+    this.advSearcOutege.customerNumber = this.form.value.clientNum;
+    this.advSearcOutege.powerConfirmation = this.form.value.power;
+    this.advSearcOutege.ticketNumber = this.form.value.ticketNum;
+    this.outageService.ExportExcel(this.advSearcOutege).subscribe(res => {
+
+      const blob = new Blob([res], { type: 'application/vnd.ms.excel' });
+      const file = new File([blob], 'OutagesReport' + Date.now() + '.xlsx', { type: 'application/vnd.ms.excel' });
+
+      saveAs(file, 'OutgaeReport' + Date.now() + '.xlsx')
+
+    }, err => {
+
+      this.toastr.error("! Fail")
+
+    });
 
   }
 }

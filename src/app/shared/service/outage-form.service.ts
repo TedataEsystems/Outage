@@ -148,4 +148,8 @@ export class OutageFormService {
   GetFileByOutageId(id: number): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/GetFileByOutageId`, id);
   }
+
+  ExportExcel(searchModel: any): Observable<Blob> {
+    return this.http.post(`${this.baseUrl}/ExportExcel`, searchModel,{responseType: 'blob',headers: this.headers});
+  }
 }
