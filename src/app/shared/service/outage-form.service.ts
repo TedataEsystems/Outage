@@ -115,7 +115,7 @@ export class OutageFormService {
     return this.http.post<any>(`${this.baseUrl}/AddOutage`, data);
   }
   updateOutage(data: Ioutage): Observable<any> {
-    return this.http.put<any>(`${this.baseUrl}/UpdateOutage`, data);
+    return this.http.post<any>(`${this.baseUrl}/UpdateOutage`, data);
   }
 
   deleteOutage(id: number): Observable<any> {
