@@ -35,13 +35,13 @@ export class EditTicketComponent implements OnInit {
       this.problemPlaceList = res.problemLocation;
       this.problemTypeList = res.problemType;
       this.statusList = res._status
-      this.service.form.patchValue({
-        Governorate: this.governorateList[0].id.toString(),
-        central: this.centralList[0].id.toString(),
-        problemType: this.problemPlaceList[0].id.toString(),
-        problemPlace: this.problemTypeList[0].id.toString(),
-        status : this.statusList[0].id.toString()
-      })
+      // this.service.form.patchValue({
+      //   Governorate: this.governorateList[0].id.toString(),
+      //   central: this.centralList[0].id.toString(),
+      //   problemType: this.problemPlaceList[0].id.toString(),
+      //   problemPlace: this.problemTypeList[0].id.toString(),
+      //   status : this.statusList[0].id.toString()
+      // })
     });
 
     this.service.GetFileByOutageId(this.id).subscribe(res => {
@@ -52,6 +52,7 @@ export class EditTicketComponent implements OnInit {
 
     this.service.getOutageById(this.id).subscribe(res => {
       this.outageModel = res.data;
+      debugger
       // this.service.form['controls']['attachFile'].setValue(this.fileName);
       this.service.form.patchValue({
         clientName: this.outageModel.customerName,

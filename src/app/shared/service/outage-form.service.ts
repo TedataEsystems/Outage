@@ -119,7 +119,7 @@ export class OutageFormService {
   }
 
   deleteOutage(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/DeleteOutage/` + id);
+    return this.http.post<any>(`${this.baseUrl}/DeleteOutage/`,id);
   }
 
   getListsForCreate(): Observable<any> {
