@@ -102,10 +102,19 @@ export class EditTicketComponent implements OnInit {
       this.outageModel.problemLocationId = Number(this.service.form.value.problemPlace);
       this.outageModel.statusId = Number(this.service.form.value.statusId);
 
-      this.service.updateOutage(this.outageModel).subscribe(res => {
-        this.onClose();
-        if (res.status == true) {
-          if (this.file != null) {
+      if (this.file == null) {
+        this.service.updateOutage(this.outageModel).subscribe(res => {
+          this.toastr.success(':Update successfully');
+          this.onClose();
+        }, error => {
+          this.toastr.warning(':: An Error Occured')
+        }
+        );
+      }
+      else {
+        this.service.updateOutage(this.outageModel).subscribe(res => {
+          this.onClose();
+          if (res.status == true) {
             this.service.upload(this.file, res.id).subscribe((res) => {
               if (res.status == true) {
                 this.toastr.success(':Update successfully');
@@ -114,11 +123,12 @@ export class EditTicketComponent implements OnInit {
               else { this.toastr.warning(':failed to upload file'); }
             });
           }
+        }, error => {
+          this.toastr.warning(':: An Error Occured')
         }
-      }, error => {
-        this.toastr.warning(':: An Error Occured')
+        );
       }
-      );
+
     } //end of if
 
   }
@@ -127,12 +137,12 @@ export class EditTicketComponent implements OnInit {
 
 
   @ViewChild('centralSearch') centralSearch!: ElementRef;
-  onCentralInputChange(){
+  onCentralInputChange() {
     const searchInput = this.centralSearch.nativeElement.value ?
-    this.centralSearch.nativeElement.value.toLowerCase() : '' ;
-    this.centralList = this._centralList.filter(u=> {
-      const name : string= u.name.toLowerCase();
-      return name.indexOf(searchInput) > -1 ;
+      this.centralSearch.nativeElement.value.toLowerCase() : '';
+    this.centralList = this._centralList.filter(u => {
+      const name: string = u.name.toLowerCase();
+      return name.indexOf(searchInput) > -1;
     });
   }
 
