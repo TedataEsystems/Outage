@@ -218,7 +218,7 @@ export class OutageComponent implements OnInit {
       })
       .afterClosed()
       .subscribe((result) => {
-
+        this.getRequestdata(1, 100, '', this.sortColumnDef, this.SortDirDef);
       });
   }
 

@@ -29,7 +29,6 @@ export class EditTicketComponent implements OnInit {
 
   getformLists() {
     this.service.getListsForCreate().subscribe(res => {
-      debugger
       this.governorateList = res.governorate;
       this.centralList = res.central;
       this._centralList = res.central;

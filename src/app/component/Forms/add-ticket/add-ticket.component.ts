@@ -36,7 +36,6 @@ export class AddTicketComponent implements OnInit {
     this.dialogRef.close('save');
   }
   onSubmit() {
-    debugger
     if (this.service.form.valid) {
       this.outage.id = this.service.form.value.id;
       this.outage.customerName = this.service.form.value.clientName;
@@ -47,7 +46,6 @@ export class AddTicketComponent implements OnInit {
       this.outage.customerNumber = this.service.form.value.clientNum;
       this.outage.powerConfirmation = this.service.form.value.power;
       this.outage.ticketNumber = this.service.form.value.TicketNum;
-      this.outage.telecomEgyptMail = this.telecomEgyptMail;
       this.outage.governorateId = Number(this.service.form.value.Governorate);
       this.outage.centralId = Number(this.service.form.value.central);
       this.outage.problemTypeId = Number(this.service.form.value.problemType);
@@ -55,7 +53,6 @@ export class AddTicketComponent implements OnInit {
       this.outage.statusId = 1;
 
       this.service.insertOutage(this.outage).subscribe(res => {
-        debugger
         this.onClose();
         if (res.status == true) {
           if (this.file != null) {

@@ -18,6 +18,6 @@ export interface Ioutage {
     customerNumber: string
     powerConfirmation: string
     ticketNumber: string
-    telecomEgyptMail: string
+
   }
   
