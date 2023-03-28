@@ -20,7 +20,7 @@
   dir="rtl"
 >
 <!-- ------------------------------test----------------------- -->
-<mat-grid-list cols="2" rowHeight="500" class="mx-3">
+<mat-grid-list cols="2" rowHeight="490" class="mx-3">
   <mat-grid-tile colspan="1">
     <div class="controles-container">
 
@@ -134,22 +134,28 @@
         <mat-error> * مطلوب </mat-error>
 
       </mat-form-field>
-      <div class="box">
-        <mat-list>
-          <mat-list-item>
-          <mat-icon mat-list-icon class=" text-danger" (click)="removeFile()">delete_forever</mat-icon>
 
-          <div mat-line>{{ fileName }}</div>
-          <mat-icon>insert_drive_file</mat-icon>
-        </mat-list-item>
-        </mat-list>
-       </div>
 
     </div>
   </mat-grid-tile>
 
-
 </mat-grid-list>
+<mat-grid-list cols="2" rowHeight="40" dir="ltr" class="mx-3">
+<mat-grid-tile colspan="1">
+  <div class="controles-container py-0">
+    <div class="box">
+      <mat-list class="pt-0">
+        <mat-list-item>
+        <mat-icon mat-list-icon class=" text-danger" (click)="removeFile()">delete_forever</mat-icon>
+
+        <div mat-line>{{ fileName }}</div>
+        <mat-icon>insert_drive_file</mat-icon>
+      </mat-list-item>
+      </mat-list>
+     </div>
+    </div>
+    </mat-grid-tile>
+  </mat-grid-list>
 <mat-toolbar class="bottom">
   <div class="button-row w-100 text-center">
     <button mat-raised-button class="btn-success w-50" type="submit">

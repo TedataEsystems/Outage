@@ -33,7 +33,7 @@
     position: absolute;
     bottom: 0;
     z-index: 2;
-  
+
   }
   mat-form-field{
     margin-top: 25px !important;
@@ -42,21 +42,23 @@
   direction: rtl;
     text-align: right;
     margin-top: 15px;
-  
+
   } */
-  
+
   .mat-toolbar-row, .mat-toolbar-single-row{
     height: 50px;
   }
   .space{
     height: 63.8px;
   }
-  
-  
+
+
   .box{
     /* height: 150px;
     overflow-y: auto; */
-    margin: 10px 0;
+    /* margin: 10px 0; */
       border: 1.5px dashed #c6cacd;
   }
-  
+  .mat-list-base .mat-list-item.mat-list-item-with-avatar, .mat-list-base .mat-list-option.mat-list-item-with-avatar{
+    height: 38px !important;
+  }

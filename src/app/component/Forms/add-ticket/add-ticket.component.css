@@ -57,6 +57,6 @@ direction: rtl;
 .box{
   /* height: 150px;
   overflow-y: auto; */
-  margin: 10px 0;
+  margin-top: 6px;
     border: 1.5px dashed #c6cacd;
 }
