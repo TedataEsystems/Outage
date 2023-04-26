@@ -151,10 +151,10 @@ export class OutageComponent implements OnInit {
     this.advSearcOutege.statusId = this.form.value.statusId;
     this.advSearcOutege.customerName = this.form.value.clientName;
     this.advSearcOutege.frameName = this.form.value.frameName;
-    this.advSearcOutege.governorateId = this.form.value.governorateId;
-    this.advSearcOutege.centralId = this.form.value.centralId;
-    this.advSearcOutege.problemTypeId = this.form.value.problemTypeId;
-    this.advSearcOutege.problemLocationId = this.form.value.problemLocationId;
+    this.advSearcOutege.governorateId = this.form.value.Governorate;
+    this.advSearcOutege.centralId = this.form.value.central;
+    this.advSearcOutege.problemTypeId = this.form.value.problemType;
+    this.advSearcOutege.problemLocationId = this.form.value.problemPlace;
     this.advSearcOutege.circleNumber = this.form.value.circutNo;
 
     this.advSearcOutege.port = this.form.value.port;
@@ -309,10 +309,10 @@ export class OutageComponent implements OnInit {
     this.advSearcOutege.statusId = this.form.value.statusId;
     this.advSearcOutege.customerName = this.form.value.clientName;
     this.advSearcOutege.frameName = this.form.value.frameName;
-    this.advSearcOutege.governorateId = this.form.value.governorateId;
-    this.advSearcOutege.centralId = this.form.value.centralId;
-    this.advSearcOutege.problemTypeId = this.form.value.problemTypeId;
-    this.advSearcOutege.problemLocationId = this.form.value.problemLocationId;
+    this.advSearcOutege.governorateId = this.form.value.Governorate;
+    this.advSearcOutege.centralId = this.form.value.central;
+    this.advSearcOutege.problemTypeId = this.form.value.problemType;
+    this.advSearcOutege.problemLocationId = this.form.value.problemPlace;
     this.advSearcOutege.circleNumber = this.form.value.circutNo;
     this.advSearcOutege.port = this.form.value.port;
     this.advSearcOutege.custommerAddress = this.form.value.clientAddress;
