@@ -1,7 +1,7 @@
 <mat-card class="example-card">
   <mat-card-header>
       <mat-card-title>
-        نوع المشكلة 
+        نوع المشكلة
       </mat-card-title>
       <button mat-button class="opt"  (click)=addProblemType()>
           <mat-icon class="add-new ico">add</mat-icon>
@@ -54,7 +54,7 @@
       {{element.name}}
      </ng-container>
      <ng-container *ngIf="editdisabled  && element.id==editUsr">
-       <mat-form-field hideRequiredMarker="false" appearance="legacy">
+       <mat-form-field hideRequiredMarker="false" appearance="legacy" class="text-right">
          <input matInput placeholder="نوع المشكلة" #ProblemType name="name" [(ngModel)]="element.name" (keyup)="IsUpdateNameRepeated(element)" >
          <span class="mat-err1" *ngIf="isNameUpdatedRepeated && element.id == editUsr&& ProblemType.value!=''"><strong>!   &nbsp;</strong>مسجلة مسبقاً </span>
 

@@ -2,7 +2,7 @@ form{
     position: absolute !important;
     left: 12px !important;
     top: 58px;
-  
+
   }
   form mat-form-field{
   text-align: right;
@@ -29,11 +29,13 @@ form{
     display: block;
     color: #f44336;
     font-size: 12px;
-  
-  
+  left: 5px;
+
   }
-  
   mat-form-field{
     direction: rtl;
   }
-  
+  mat-form-field[appearance="legacy"]{
+    direction: rtl;
+    width: -webkit-fill-available;
+  }
