@@ -1082,12 +1082,12 @@ mat-icon:hover {
   color: #001923;
 }
 .mat-select-panel .mat-input-element {
-  background-color: var(--main-color) !important;
+  background-color:white !important;
   border: 1px solid #cad1d3;
   margin: 5px;
   padding: 5px 10px;
-  border-radius: 5px;
-  width: 92%;
+  border-radius: 3px;
+  width: 90%;
   box-shadow: inset 2px 2px 6px #e9eae6, inset -2px -2px 6px #e9eae6;
 }
 
@@ -1276,4 +1276,8 @@ mat-footer-cell:first-of-type {
 .details .mat-expansion-panel:not([class*=mat-elevation-z])
 {
 box-shadow: none !important;
+}
+.inputFilter{
+  background-color: white !important;
+  color: grey;
 }

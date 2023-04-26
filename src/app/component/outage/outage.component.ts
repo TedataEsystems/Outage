@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -30,10 +30,14 @@ export class OutageComponent implements OnInit {
   lastdir: string = 'asc';
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   @ViewChild(MatSort) sort?: MatSort;
+  @ViewChild('centralSearch') centralSearch!: ElementRef;
+  @ViewChild('governateSearch') governateSearch!: ElementRef;
   advSearcOutege: AdvancedSearch = <AdvancedSearch>{};
   outeges: Ioutage[] = [];
   governorateList: any[] = [];
+  _governorateList: any[] = [];
   centralList: any[] = [];
+  _centralList: any[] = [];
   problemPlaceList: any[] = [];
   problemTypeList: any[] = [];
   statuesList: any[] = [];
@@ -172,6 +176,26 @@ export class OutageComponent implements OnInit {
     });
 
   }
+
+
+  onCentralInputChange(){
+    const searchInput = this.centralSearch.nativeElement.value ?
+    this.centralSearch.nativeElement.value.toLowerCase() : '' ;
+    this.centralList = this._centralList.filter(u=> {
+      const name : string= u.name.toLowerCase();
+      return name.indexOf(searchInput) > -1 ;
+    });
+  }
+  onGovernateInputChange(){
+    const searchInput = this.governateSearch.nativeElement.value ?
+    this.governateSearch.nativeElement.value.toLowerCase() : '' ;
+    this.governorateList = this._governorateList.filter(u=> {
+      const name : string= u.name.toLowerCase();
+      return name.indexOf(searchInput) > -1 ;
+    });
+  }
+
+
   clearAdvancedSearch() {
     this.form.reset();
     this.getRequestdata(1, 100, '', this.sortColumnDef, this.SortDirDef);
@@ -257,7 +281,9 @@ export class OutageComponent implements OnInit {
   getformLists() {
     this.outageService.getListsForCreate().subscribe(res => {
       this.governorateList = res.governorate;
+      this._governorateList = res.governorate;
       this.centralList = res.central;
+      this._centralList = res.central;
       this.problemPlaceList = res.problemLocation;
       this.problemTypeList = res.problemType;
       this.statuesList = res._status;

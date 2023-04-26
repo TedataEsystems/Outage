@@ -34,7 +34,7 @@
       </mat-form-field>
       <mat-form-field>
         <mat-select formControlName="Governorate" placeholder=" المحافظة ">
-          <mat-option>-- اختر --</mat-option>
+          <input type="text" matInput class="p-2 inputFilter" placeholder="Search by name..." #governateSearch (keyup)="onGovernateInputChange()" (keydown)="$event.stopPropagation()" >
           <ng-container *ngFor="let element of governorateList">
             <mat-option value="{{element.id}}">{{element.name}}</mat-option>
           </ng-container>
@@ -44,8 +44,8 @@
       </mat-form-field>
       <mat-form-field>
         <mat-select formControlName="central" placeholder=" السنترال ">
-          <mat-option>-- اختر --</mat-option>
-          <input type="text" autocomplete="off"  class="w-100"  placeholder="Search by name..." #centralSearch (input)="onCentralInputChange()" >
+          <input type="text" matInput class="p-2 inputFilter" placeholder="Search by name..." #centralSearch (keyup)="onCentralInputChange()" (keydown)="$event.stopPropagation()" >
+          <!-- <input type="text" autocomplete="off"  class="w-100"  placeholder="Search by name..." #centralSearch (input)="onCentralInputChange()" > -->
 
           <ng-container *ngFor="let element of centralList">
             <mat-option value="{{element.id}}">{{element.name}}</mat-option>

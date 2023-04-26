@@ -13,6 +13,7 @@ export class EditTicketComponent implements OnInit {
   telecomEgyptMail: any
   outageModel: Ioutage = <Ioutage>{};
   governorateList: any[] = [];
+  _governorateList: any[] = [];
   centralList: any[] = [];
   _centralList: any[] = [];
   problemPlaceList: any[] = [];
@@ -21,7 +22,8 @@ export class EditTicketComponent implements OnInit {
   id: number = 0;
   file: File | null; // Variable to store file
   fileName: string;
-
+  @ViewChild('centralSearch') centralSearch!: ElementRef;
+  @ViewChild('governateSearch') governateSearch!: ElementRef;
   constructor(public dialogRef: MatDialogRef<EditTicketComponent>, private toastr: ToastrService, public service: OutageFormService, @Inject(MAT_DIALOG_DATA) public data: any) {
     this.id = data.id;
   }
@@ -30,6 +32,7 @@ export class EditTicketComponent implements OnInit {
   getformLists() {
     this.service.getListsForCreate().subscribe(res => {
       this.governorateList = res.governorate;
+      this._governorateList = res.governorate;
       this.centralList = res.central;
       this._centralList = res.central;
       this.problemPlaceList = res.problemLocation;
@@ -136,7 +139,7 @@ export class EditTicketComponent implements OnInit {
 
 
 
-  @ViewChild('centralSearch') centralSearch!: ElementRef;
+
   onCentralInputChange() {
     const searchInput = this.centralSearch.nativeElement.value ?
       this.centralSearch.nativeElement.value.toLowerCase() : '';
@@ -146,6 +149,15 @@ export class EditTicketComponent implements OnInit {
     });
   }
 
+
+  onGovernateInputChange() {
+    const searchInput = this.governateSearch.nativeElement.value ?
+      this.governateSearch.nativeElement.value.toLowerCase() : '';
+    this.governorateList = this._governorateList.filter(u => {
+      const name: string = u.name.toLowerCase();
+      return name.indexOf(searchInput) > -1;
+    });
+  }
 
   handleFileInputChange(event) {
     this.file = event.target.files[0];
@@ -170,7 +182,7 @@ export class EditTicketComponent implements OnInit {
 
   }
 
-  //#region upload attach file 
+  //#region upload attach file
 
   convertFileToBase64Logo(file) {
     return new Promise((resolve, reject) => {

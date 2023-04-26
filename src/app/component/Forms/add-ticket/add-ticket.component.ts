@@ -12,6 +12,7 @@ import { OutageFormService } from 'src/app/shared/service/outage-form.service';
 export class AddTicketComponent implements OnInit {
   outage: Ioutage = <Ioutage>{};
   governorateList: any[] = [];
+  _governorateList: any[] = [];
   centralList: any[] = [];
   _centralList: any[] = [];
   problemPlaceList: any[] = [];
@@ -19,7 +20,8 @@ export class AddTicketComponent implements OnInit {
   telecomEgyptMail: any
   file: File | null; // Variable to store file
   fileName: string;
-
+  @ViewChild('centralSearch') centralSearch!: ElementRef;
+  @ViewChild('governateSearch') governateSearch!: ElementRef;
   constructor(public dialogRef: MatDialogRef<AddTicketComponent>, private toastr: ToastrService, public service: OutageFormService) { }
 
   ngOnInit(): void {
@@ -101,6 +103,7 @@ export class AddTicketComponent implements OnInit {
   getformLists() {
     this.service.getListsForCreate().subscribe(res => {
       this.governorateList = res.governorate;
+      this._governorateList = res.governorate;
       this.centralList = res.central;
       this._centralList = res.central;
       this.problemPlaceList = res.problemLocation;
@@ -109,7 +112,7 @@ export class AddTicketComponent implements OnInit {
 
 
   }
-  @ViewChild('centralSearch') centralSearch!: ElementRef;
+
   onCentralInputChange(){
     const searchInput = this.centralSearch.nativeElement.value ?
     this.centralSearch.nativeElement.value.toLowerCase() : '' ;
@@ -118,8 +121,16 @@ export class AddTicketComponent implements OnInit {
       return name.indexOf(searchInput) > -1 ;
     });
   }
+  onGovernateInputChange(){
+    const searchInput = this.governateSearch.nativeElement.value ?
+    this.governateSearch.nativeElement.value.toLowerCase() : '' ;
+    this.governorateList = this._governorateList.filter(u=> {
+      const name : string= u.name.toLowerCase();
+      return name.indexOf(searchInput) > -1 ;
+    });
+  }
 
-  //#region upload attach file 
+  //#region upload attach file
 
   convertFileToBase64Logo(file) {
     return new Promise((resolve, reject) => {
