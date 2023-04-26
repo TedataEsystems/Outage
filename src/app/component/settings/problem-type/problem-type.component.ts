@@ -101,11 +101,15 @@ export class ProblemTypeComponent implements OnInit {
       creationDate: row.creationDate,
       updatedBy: localStorage.getItem('userName') || '',
     };
+    console.log(ProblemType,"problem in edit");
     this.problemTypeService.updateProblemType(ProblemType).subscribe(res => {
-      if (res.ProblemType) {
+      console.log(res,"this is result");
+      if (res.problemType) {
+        console.log(ProblemType,"problem in function  edit");
         setTimeout(() => {
           this.loader = false;
         }, 1500)
+        debugger;
         this.toastr.success(" update successfully");
         this.form['controls']['Name'].setValue('');
         this.form['controls']['Id'].setValue(0);
