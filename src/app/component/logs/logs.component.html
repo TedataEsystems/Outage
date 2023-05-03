@@ -44,6 +44,11 @@
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> اسم الجدول</mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.parentType}} </mat-cell>
     </ng-container>
+    <ng-container matColumnDef="elementId">
+      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> رقم العنصر  </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.elementId}} </mat-cell>
+  </ng-container>
+
 
       <ng-container matColumnDef="actionType">
           <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> الاجراء</mat-header-cell>
